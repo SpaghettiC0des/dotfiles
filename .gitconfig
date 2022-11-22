@@ -1,0 +1,16 @@
+[user]
+	name = karlmarxlopez
+	email = 7194216+karlmarxlopez@users.noreply.github.com
+	signingKey = E30D7F68A6704555
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[commit]
+	gpgSign = false
+[tag]
+	gpgSign = false
+[gpg]
+	program = /opt/homebrew/bin/gpg
+[core]
+    editor = nvim -u ~/.config/nvim/init-git.vim
