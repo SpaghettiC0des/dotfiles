@@ -55,7 +55,7 @@ WORDCHARS=${WORDCHARS//[\/]}
 #
 
 # Set a custom prefix for the generated aliases. The default prefix is 'G'.
-#zstyle ':zim:git' aliases-prefix 'g'
+zstyle ':zim:git' aliases-prefix 'g'
 
 #
 # input
@@ -257,7 +257,6 @@ alias firefox:ahp="/Applications/Firefox.app/Contents/MacOS/firefox -P 'AHP'"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export CHROME_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$PATH:`pwd`/codes/flutter-sdk/bin"
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 
@@ -291,3 +290,9 @@ export LC_ALL=en_US.UTF-8
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(rbenv init - zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/karlmarxlopez/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
