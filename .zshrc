@@ -249,11 +249,28 @@ alias ssh:nowcom="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/nowcom"
 alias ssh:github="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/github"
 alias ssh:merkle="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/merkle"
 alias ssh:fulcrum="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/fulcrum"
+alias ssh:ae="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/appevolve"
+alias ssh:ns="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/netsells"
 alias firefox:nowcom="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Nowcom'"
 alias firefox:merkle="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Merkle'"
 alias firefox:default="/Applications/Firefox.app/Contents/MacOS/firefox -P 'default'"
 alias firefox:fulcrum="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Fulcrum'"
-alias firefox:ahp="/Applications/Firefox.app/Contents/MacOS/firefox -P 'AHP'"
+alias firefox:="/Applications/Firefox.app/Contents/MacOS/firefox -P 'AHP'"
+alias pnpx="pnpm dlx"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
+alias ........="cd ../../../../../../.."
+alias .........="cd ../../../../../../../.."
+alias ..........="cd ../../../../../../../../.."
+alias ...........="cd ../../../../../../../../../.."
+alias ............="cd ../../../../../../../../../../.."
+alias .............="cd ../../../../../../../../../../../.."
+
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export CHROME_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
@@ -296,3 +313,8 @@ eval "$(rbenv init - zsh)"
 export PNPM_HOME="/Users/karlmarxlopez/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/karlmarxlopez/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/karlmarxlopez/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/karlmarxlopez/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/karlmarxlopez/google-cloud-sdk/completion.zsh.inc'; fi
