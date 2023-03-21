@@ -273,19 +273,17 @@ alias .............="cd ../../../../../../../../../../../.."
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export CHROME_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+# export CHROME_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+export CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 export PATH="$PATH:`pwd`/codes/flutter-sdk/bin"
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-
 export ANDROID_HOME=$ANDROID_SDK_ROOT
 export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 export PATH=$PATH:$HOME/Library/Python/3.8/bin
+export PATH=$PATH:$HOME/Library/Python/3.11/bin
 export PATH=$PATH:$HOME/.platformio/penv/bin
 export SDKROOT=$(xcrun -sdk macosx --show-sdk-path)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
@@ -318,3 +316,7 @@ if [ -f '/Users/karlmarxlopez/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/k
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/karlmarxlopez/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/karlmarxlopez/google-cloud-sdk/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
