@@ -9,12 +9,12 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'easymotion/vim-easymotion', Cond(!exists('g:vscode'))
     Plug 'asvetliakov/vim-easymotion', Cond(exists('g:vscode'), { 'as': 'vsc-easymotion' })
     Plug 'tpope/vim-surround'
-    Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'), { 'branch': 'master','do': 'yarn install --frozen-lockfile' }) 
+    Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'), { 'branch': 'master','do': 'yarn install --frozen-lockfile' })
     Plug 'folke/tokyonight.nvim', Cond(!exists('g:vscode'), { 'branch': 'master' })
     " Plug 'haishanh/night-owl.vim'
     " Plug 'phaazon/hop.nvim', Cond(!exists('g:vscode'))
     Plug 'tpope/vim-fugitive', Cond(!exists('g:vscode'))
-    Plug 'tpop/vim-repeat'
+    Plug 'tpope/vim-repeat'
 call plug#end()
 
 
@@ -263,10 +263,8 @@ if exists('g:vscode')
     """"" enable the theme
 
     syntax enable
-    colorscheme tokyonight-night 
+    colorscheme tokyonight-night
     " To enable the lightline theme
     let g:lightline = { 'colorscheme': 'tokyonight-night' }
 
 endif
-
-
