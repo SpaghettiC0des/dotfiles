@@ -283,6 +283,7 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 export PATH=$PATH:$HOME/Library/Python/3.8/bin
 export PATH=$PATH:$HOME/Library/Python/3.11/bin
 export PATH=$PATH:$HOME/.platformio/penv/bin
+export PATH=$PATH:~/.local/bin
 export SDKROOT=$(xcrun -sdk macosx --show-sdk-path)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
