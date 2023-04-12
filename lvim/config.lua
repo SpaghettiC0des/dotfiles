@@ -21,6 +21,7 @@ lvim.colorscheme = "tokyonight-night"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.insert_mode["jk"] = "<Esc>"
 lvim.keys.term_mode = { ["<C-l>"] = false }
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -59,10 +60,24 @@ lvim.keys.term_mode = { ["<C-l>"] = false }
 --   v = { "<cmd>2ToggleTerm size=15 direction=vertical<cr>", "Split vertical" },
 --   h = { "<cmd>2ToggleTerm size=15 direction=horizontal<cr>", "Split horizontal" },
 -- }
-lvim.builtin.which_key.mappings["m"] = {
-  name = "+Mini Map",
-  t = { "<Cmd>MiniMap.toggle<CR>", "Toggle" }
-}
+-- lvim.builtin.which_key.mappings["m"] = {
+--   name = "+Markdown Preview",
+--   p = { "<Plug>MarkdownPreview", "Preview" },
+--   s = { "<Plug>MarkdownPreviewStop", "Stop Preview" },
+--   t = { "<Plug>MarkdownPreviewToggle", "Toggle Preview" }
+-- }
+-- function! ToggleGstatus() abort
+--   for l:winnr in range(1, winnr('$'))
+--     if !empty(getwinvar(l:winnr, 'fugitive_status'))
+--       exe l:winnr 'close'
+--       return
+--     endif
+--   endfor
+--   keepalt Git
+-- endfunction
+-- lvim.builtin.which_key.mappings["g"] = {
+--   s = { "<Cmd>MiniMap.toggle<CR>", "Toggle status" }
+-- }
 -- lvim.builtin.which_key.setup.plugins.presets.z = true
 -- lvim.builtin.which_key.mappings["t"] = {
 --   name = "+Trouble",
@@ -159,7 +174,7 @@ formatters.setup {
   },
   {
     command = 'eslint_d',
-    filetypes = { "typescript", "typescriptreact", "javascript", }
+    filetypes = { "typescript", "typescriptreact", "javascript", },
   },
 }
 
@@ -181,7 +196,7 @@ linters.setup {
   --   },
   {
     command = "eslint_d",
-    filetypes = { "typescript", "typescriptreact", "javascript", "json" }
+    filetypes = { "typescript", "typescriptreact", "javascript" }
   },
 }
 
@@ -218,9 +233,9 @@ lvim.plugins = {
     event = "BufRead",
     config = function()
       require("hop").setup()
-      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
-      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
-      vim.api.nvim_set_keymap("n", "ss", ":HopLineStart<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "Hs", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "HS", ":HopWord<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "Hss", ":HopLineStart<cr>", { silent = true })
     end,
   },
   {
@@ -268,13 +283,20 @@ lvim.plugins = {
   -- {
   --   "yeddaif/neovim-purple",
   --   as = 'shades of purple'
-  -- }
+  -- },
+  {
+    'haishanh/night-owl.vim'
+  },
   {
     "tpope/vim-surround"
   },
   {
     "tpope/vim-repeat"
-  }
+  },
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   run = function() vim.fn["mkdp#util#install"]() end,
+  -- }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -326,7 +348,7 @@ lvim.autocommands = {
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
 table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
 
-lvim.transparent_window = false
+lvim.transparent_window = true
 vim.opt.relativenumber = true
-
+vim.opt.cmdheight = 1
 -- local linters
