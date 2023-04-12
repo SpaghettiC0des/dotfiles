@@ -3,6 +3,7 @@ function! Cond(Cond, ...)
   return a:Cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 
+let g:autotagStartMethod='fork'
 
 call plug#begin(stdpath('data') . '/plugged')
 
@@ -20,16 +21,8 @@ call plug#end()
 
 
 let mapleader = " "
-" let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
@@ -37,11 +30,11 @@ nmap <leader>s <Plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap <leader>s <Plug>(easymotion-overwin-f2)
-nmap <leader>S <Plug>(easymotion-w)
-nmap <leader>S <Plug>(easymotion-overwin-w)
-nmap <leader>w :w<CR>
-nmap <leader>c :tabclose<CR>
+nmap <Leader>s <Plug>(easymotion-overwin-f2)
+nmap <Leader>S <Plug>(easymotion-w)
+nmap <Leader>S <Plug>(easymotion-overwin-w)
+nmap <Leader>w :w<CR>
+nmap <Leader>q :q<CR>
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
 
@@ -49,12 +42,30 @@ let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>l <Plug>(easymotion-k)
+map <Leader>f :fin<CR>
+map <Leader>h :noh<CR>
+nmap <Leader>c :tabclose<CR>
 
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+nmap H gT
+nmap L gt
 " Disable opening the output window
 let g:EasyMotion_prompt = ""
 
 if exists('g:vscode')
     " VSCode extension
+    " map / <Cmd>call VSCodeNotify('actions.find')<CR>
+    " map n <Cmd>call VSCodeNotify('editor.action.nextMatchFindAction')<CR>
+    " map <Leader>c <Cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
+    " map <Leader>f <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
+    nmap <Leader>rn <Cmd>call VSCodeNotify('editor.action.rename')<CR>
     set ignorecase " do case insensitive search
     set incsearch
     function! s:manageEditorSize(...)
@@ -74,8 +85,7 @@ if exists('g:vscode')
     xnoremap <C-w>< <Cmd>call <SID>manageEditorSize(v:count, 'decrease')<CR>
     nnoremap <C-w>- <Cmd>call <SID>manageEditorSize(v:count, 'decrease')<CR>
     xnoremap <C-w>- <Cmd>call <SID>manageEditorSize(v:count, 'decrease')<CR>
-
-   else
+else
     nmap <leader>q :q!<CR>
     " ordinary Neovim
     syntax on      " syntax highlighting
