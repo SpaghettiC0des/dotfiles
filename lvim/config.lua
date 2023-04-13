@@ -207,7 +207,14 @@ lvim.plugins = {
   --   cmd = "TroubleToggle",
   -- },
   {
-    "github/copilot.vim"
+    "github/copilot.vim",
+    config = function()
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+      vim.api.nvim_set_keymap("i", "<C-k>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+      vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Previous()', { silent = true, expr = true })
+      vim.api.nvim_set_keymap("i", "<C-h>", 'copilot#Next()', { silent = true, expr = true })
+    end
   },
   {
     "tpope/vim-fugitive",
@@ -300,6 +307,11 @@ lvim.plugins = {
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   -- pattern = { "*.json", "*.jsonc" },
+--   -- enable wrap mode for json files only
+--   command = "Copilot setup",
+-- })
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = { "*.json", "*.jsonc" },
 --   -- enable wrap mode for json files only
@@ -352,3 +364,11 @@ lvim.transparent_window = true
 vim.opt.relativenumber = true
 vim.opt.cmdheight = 1
 -- local linters
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
