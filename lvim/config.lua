@@ -11,7 +11,9 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
-lvim.colorscheme = "tokyonight-night"
+-- lvim.colorscheme = "night-owl"
+-- lvim.colorscheme = "tokyonight-night"
+lvim.colorscheme = "catppuccin"
 -- Uncomment to see LSP debug logs
 -- lvim.lsp.set_log_level("debug")
 -- to disable icons and use a minimalist setup, uncomment the following
@@ -23,6 +25,25 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.insert_mode["jk"] = "<Esc>"
 lvim.keys.term_mode = { ["<C-l>"] = false }
+
+
+-- Move current line / block with Alt-j/k ala vscode.
+lvim.keys.insert_mode["∆"] = "<Esc>:m .+1<CR>==gi";
+lvim.keys.insert_mode["˚"] = "<Esc>:m .-2<CR>==gi";
+lvim.keys.normal_mode["∆"] = ":m .+1<CR>==";
+lvim.keys.normal_mode["˚"] = ":m .-2<CR>==";
+-- navigation
+-- lvim.keys.normal_mode["<A-Up>"] = "<C-\\><C-N><C-w>k";
+-- lvim.keys.normal_mode["<A-Down>"] = "<C-\\><C-N><C-w>j";
+-- lvim.keys.normal_mode["<A-Left>"] = "<C-\\><C-N><C-w>h";
+-- lvim.keys.normal_mode["<A-Right>"] = "<C-\\><C-N><C-w>l";
+
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<leader>ns",
+--   "<cmd>lua require('package-info').show()<cr>",
+--   { silent = true, noremap = true }
+-- )
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
@@ -48,18 +69,53 @@ lvim.keys.term_mode = { ["<C-l>"] = false }
 --   },
 -- }
 
+-- lvim.builtin.telescope.on_config_done = function(t)
+--   pcall(t.load_extension, "live_grep_args")
+-- end
 -- Change theme settings
 -- lvim.builtin.theme.options.dim_inactive = true
 -- lvim.builtin.theme.options.style = "storm"
-
+-- lvim.builtin.which_key.mappings.f = { "<cmd>Telescope git_files show_untrack=true<cr>", "Find File"
+-- }
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Terminal",
---   f = { "<cmd>ToggleTerm<cr>", "Floating terminal" },
---   v = { "<cmd>2ToggleTerm size=15 direction=vertical<cr>", "Split vertical" },
---   h = { "<cmd>2ToggleTerm size=15 direction=horizontal<cr>", "Split horizontal" },
--- }
+lvim.builtin.which_key.mappings["m"] = {
+  name = "+Terminal",
+  f = { "<cmd>1ToggleTerm direction=float<cr>", "Floating terminal" },
+  v = { "<cmd>2ToggleTerm size=50 direction=vertical<cr>", "Split vertical" },
+  h = { "<cmd>3ToggleTerm size=15 direction=horizontal<cr>", "Split horizontal" },
+  t = { "<cmd>4ToggleTerm size=15 direction=tab<cr>", "Split tab" },
+  s = { "<cmd>TermSelect<cr>", "Select terminal" },
+  c = { "<cmd>ToggleTerm close<cr>", "Close Terminal" },
+}
+
+lvim.builtin.which_key.mappings["n"] = {
+  name = "+Package Info",
+  i = { "<cmd>lua require('package-info').show()<cr>", "Show package info" },
+  s = { "<cmd>lua require('package-info').search()<cr>", "Search package" },
+  u = { "<cmd>lua require('package-info').update()<cr>", "Update package" },
+}
+
+lvim.builtin.which_key.mappings["S"] = {
+  name = "+Spectre",
+  s = { "<cmd>lua require('spectre').open()<cr>", "Search" },
+  w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Search word" },
+  f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Search in file" },
+  p = { "<cmd>lua require('spectre').open_project_search()<cr>", "Search in project" },
+}
+lvim.builtin.which_key.mappings.s.t = {
+  require('telescope').extensions.live_grep_args.live_grep_args, "Live grep args",
+}
+
+lvim.builtin.which_key.mappings.l.f = {
+  function()
+    require("lvim.lsp.utils").format {
+      timeout_ms = 10000,
+    }
+  end,
+  "Format",
+}
+
 -- lvim.builtin.which_key.mappings["m"] = {
 --   name = "+Markdown Preview",
 --   p = { "<Plug>MarkdownPreview", "Preview" },
@@ -75,8 +131,10 @@ lvim.keys.term_mode = { ["<C-l>"] = false }
 --   endfor
 --   keepalt Git
 -- endfunction
--- lvim.builtin.which_key.mappings["g"] = {
---   s = { "<Cmd>MiniMap.toggle<CR>", "Toggle status" }
+-- lvim.builtin.which_key.mappings["m"] = {
+--   name = "+MiniMap",
+--   t = { "<Plug>MiniMap.toggle", "Toggle" }
+--   -- vim.keymap.set('n', '<Leader>mt', MiniMap.toggle)
 -- }
 -- lvim.builtin.which_key.setup.plugins.presets.z = true
 -- lvim.builtin.which_key.mappings["t"] = {
@@ -157,7 +215,13 @@ lvim.builtin.treesitter.highlight.enable = true
 --   --Enable completion triggered by <c-x><c-o>
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
-
+local code_actions = require "lvim.lsp.null-ls.code_actions"
+code_actions.setup {
+  {
+    exe = "eslint_d",
+    filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+  },
+}
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
@@ -170,10 +234,10 @@ formatters.setup {
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     -- extra_args = { "--print-with", "100" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact", "javascript" },
+    filetypes = { "json", "typescript", "typescriptreact", "javascript" },
   },
   {
-    command = 'eslint_d',
+    command = "eslint_d",
     filetypes = { "typescript", "typescriptreact", "javascript", },
   },
 }
@@ -189,11 +253,15 @@ linters.setup {
   --     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
   --     extra_args = { "--severity", "warning" },
   --   },
-  --   {
-  --     command = "codespell",
-  --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  --     filetypes = { "javascript", "python" },
-  --   },
+  -- {
+  --   command = "codespell",
+  --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+  --   filetypes = { "javascript", "typescript", "typescriptreact" },
+  -- },
+  {
+    command = "jsonlint",
+    filetypes = { "json" },
+  },
   {
     command = "eslint_d",
     filetypes = { "typescript", "typescriptreact", "javascript" }
@@ -211,38 +279,40 @@ lvim.plugins = {
     config = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
-      vim.api.nvim_set_keymap("i", "<C-k>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+      vim.g.copilot_tab_fallback = ""
+      vim.api.nvim_set_keymap("i", "<C-a>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
       vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Previous()', { silent = true, expr = true })
       vim.api.nvim_set_keymap("i", "<C-h>", 'copilot#Next()', { silent = true, expr = true })
     end
   },
-  {
-    "tpope/vim-fugitive",
-    cmd = {
-      "G",
-      "Git",
-      "Gdiffsplit",
-      "Gread",
-      "Gwrite",
-      "Ggrep",
-      "GMove",
-      "GDelete",
-      "GBrowse",
-      "GRemove",
-      "GRename",
-      "Glgrep",
-      "Gedit"
-    },
-    ft = { "fugitive" }
-  },
+  -- {
+  --   "tpope/vim-fugitive",
+  --   cmd = {
+  --     "G",
+  --     "Git",
+  --     "Gdiffsplit",
+  --     "Gread",
+  --     "Gwrite",
+  --     "Ggrep",
+  --     "GMove",
+  --     "GDelete",
+  --     "GBrowse",
+  --     "GRemove",
+  --     "GRename",
+  --     "Glgrep",
+  --     "Gedit"
+  --   },
+  --   ft = { "fugitive" }
+  -- },
   {
     "phaazon/hop.nvim",
     event = "BufRead",
     config = function()
       require("hop").setup()
-      vim.api.nvim_set_keymap("n", "Hs", ":HopChar2<cr>", { silent = true })
-      vim.api.nvim_set_keymap("n", "HS", ":HopWord<cr>", { silent = true })
-      vim.api.nvim_set_keymap("n", "Hss", ":HopLineStart<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", ";w", ":HopWord<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", ";c", ":HopWordCurrentLine<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", ";l", ":HopLineStart<cr>", { silent = true })
     end,
   },
   {
@@ -266,8 +336,8 @@ lvim.plugins = {
         },
         window = {
           side = 'right',
-          width = 20, -- set to 1 for a pure scrollbar :)
-          winblend = 15,
+          width = 5, -- set to 1 for a pure scrollbar :)
+          winblend = 5,
           show_integration_count = false,
         },
       })
@@ -292,9 +362,6 @@ lvim.plugins = {
   --   as = 'shades of purple'
   -- },
   {
-    'haishanh/night-owl.vim'
-  },
-  {
     "tpope/vim-surround"
   },
   {
@@ -302,8 +369,78 @@ lvim.plugins = {
   },
   -- {
   --   "iamcco/markdown-preview.nvim",
-  --   run = function() vim.fn["mkdp#util#install"]() end,
-  -- }
+  --   build = function() vim.fn["mkdp#util#install"]() end,
+  -- },
+  -- { "bluz71/vim-nightfly-colors", as = "nightfly" },
+  -- { "bluz71/vim-moonfly-colors",  name = "moonfly", lazy = false, priority = 1000 },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup({
+        enabled = true
+      })
+    end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end
+  },
+  {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup({
+        input = { enabled = true },
+      })
+    end,
+  },
+  {
+    "windwp/nvim-spectre",
+    event = "BufRead",
+    config = function()
+      require("spectre").setup()
+    end,
+  },
+  {
+    "vuki656/package-info.nvim",
+    dependencies = "MunifTanjim/nui.nvim",
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  -- {
+  --   "oxfist/night-owl.nvim"
+  -- },
+  {
+    "projekt0n/github-nvim-theme"
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        no_italic = true,
+        color_overrides = {
+          mocha = {
+            base = "#120121",
+            -- base = "#0e001a",
+            -- base = "#041626",
+            -- base = "#18192f",
+            mantle = "#000000",
+            crust = "#000000",
+          },
+        },
+      })
+    end
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -356,19 +493,12 @@ lvim.autocommands = {
 }
 
 
+-- lvim.builtin.treesitter.autotag.enable = true
 -- Can not be placed into the config method of the plugins.
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
 table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
 
-lvim.transparent_window = true
+-- lvim.transparent_window = true
 vim.opt.relativenumber = true
-vim.opt.cmdheight = 1
 -- local linters
-local function organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(0) },
-    title = ""
-  }
-  vim.lsp.buf.execute_command(params)
-end
+-- lvim.Workspace.checkThirdParty = false
