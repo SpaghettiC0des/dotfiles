@@ -1,53 +1,87 @@
 local Util = require("lazyvim.util")
 
 return {
+  -- {
+  --   "numToStr/FTerm.nvim",
+  --   lazy = true,
+  --   keys = {
+  --     {
+  --       "<leader>tb",
+  --       desc = "Terminal bottom",
+  --       function()
+  --         local fterm = require("FTerm")
+  --         local bottomTerm = fterm:new({
+  --           dimensions = {
+  --             height = 0.3,
+  --             width = 1,
+  --             x = 0,
+  --             y = 0.75,
+  --           },
+  --           border = "single",
+  --         })
+  --         bottomTerm:toggle()
+  --       end,
+  --     },
+  --   },
+  --   config = function()
+  --     require("FTerm").setup({
+  --       dimensions = {
+  --         height = 0.9,
+  --         width = 0.9,
+  --         x = 0.5,
+  --         y = 0.5,
+  --       },
+  --       border = "double", -- or 'double'
+  --     })
+  --   end,
+  -- },
   {
     "akinsho/toggleterm.nvim",
     lazy = true,
     cmd = { "ToggleTerm" },
     keys = {
       {
-        "<leader>Tf",
+        "<leader>th",
         function()
-          require("toggleterm").toggle(vim.v.count1, 0, Util.root.get(), "float")
-        end,
-        desc = "ToggleTerm (float root_dir)",
-      },
-      {
-        "<leader>Th",
-        function()
-          require("toggleterm").toggle(vim.v.count1, 15, Util.root.get(), "horizontal")
+          require("toggleterm").toggle(1, 15, Util.root.get(), "horizontal")
         end,
         desc = "ToggleTerm (horizontal root_dir)",
       },
       {
-        "<leader>Tv",
+        "<leader>tf",
         function()
-          require("toggleterm").toggle(vim.v.count1, vim.o.columns * 0.4, Util.root.get(), "vertical")
+          require("toggleterm").toggle(2, 0, Util.root.get(), "float")
+        end,
+        desc = "ToggleTerm (float root_dir)",
+      },
+      {
+        "<leader>tv",
+        function()
+          require("toggleterm").toggle(3, vim.o.columns * 0.4, Util.root.get(), "vertical")
         end,
         desc = "ToggleTerm (vertical root_dir)",
       },
       {
-        "<leader>Tn",
+        "<leader>tn",
         "<cmd>ToggleTermSetName<cr>",
         desc = "Set term name",
       },
       {
-        "<leader>Ts",
+        "<leader>ts",
         "<cmd>TermSelect<cr>",
         desc = "Select term",
       },
       {
-        "<leader>Tt",
+        "<leader>tt",
         function()
-          require("toggleterm").toggle(1, 100, Util.root.get(), "tab")
+          require("toggleterm").toggle(4, 100, Util.root.get(), "tab")
         end,
         desc = "ToggleTerm (tab root_dir)",
       },
       {
-        "<leader>TT",
+        "<leader>tr",
         function()
-          require("toggleterm").toggle(2, 100, vim.loop.cwd(), "tab")
+          require("toggleterm").toggle(5, 100, vim.loop.cwd(), "tab")
         end,
         desc = "ToggleTerm (tab cwd_dir)",
       },
@@ -56,12 +90,12 @@ return {
       -- size can be a number or function which is passed the current terminal
       size = function(term)
         if term.direction == "horizontal" then
-          return 15
+          return 30
         elseif term.direction == "vertical" then
           return vim.o.columns * 0.4
         end
       end,
-      open_mapping = [[<c-\>]],
+      -- open_mapping = [[<c-\>]],
       -- on_open = fun(t: Terminal), -- function to run when the terminal opens
       -- on_close = fun(t: Terminal), -- function to run when the terminal closes
       -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
