@@ -19,8 +19,12 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.ui.edgy" },
     { import = "lazyvim.plugins.extras.ui.alpha" },
     -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
+    { import = "lazyvim.plugins.extras.coding.yanky" },
     { import = "lazyvim.plugins.extras.coding.copilot" },
     { import = "lazyvim.plugins.extras.editor.aerial" },
+    -- { import = "lazyvim.plugins.extras.editor.symbols-outline" },
+    -- { import = "lazyvim.plugins.extras.editor.navic" },
+    { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.vscode" },
     { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
@@ -38,7 +42,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  install = { colorscheme = { "tokyonight", "habamax", "oxfist/night-owl.nvim" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
