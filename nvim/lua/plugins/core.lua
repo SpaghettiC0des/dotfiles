@@ -1,3 +1,4 @@
+local Util = require("lazyvim.util")
 local function truncate(str, len, opts)
   opts = opts or {}
   local pad = opts.pad or "..."
@@ -39,14 +40,17 @@ local config = {
       },
     },
     -- change some options
-    opts = {
-      defaults = {
+    opts = function(_, opts)
+      opts.defaults = {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
-      },
-    },
+      }
+      Util.on_load("telescope.nvim", function()
+        require("telescope").load_extension("aerial")
+      end)
+    end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -100,6 +104,13 @@ __/\\\________/\\\__________________________________/\\\\\\______/\\\________/\\
   },
   {
     "neovim/nvim-lspconfig",
+    keys = {
+      {
+        "<leader>ct",
+        "<cmd>LspRestart<cr>",
+        desc = "LSP Restart",
+      },
+    },
     opts = {
       servers = { eslint = {} },
       setup = {

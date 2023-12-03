@@ -35,6 +35,10 @@ set("n", "<M-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 set("n", "<M-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 set("n", "<M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 set("n", "<M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+set("t", "<M-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+set("t", "<M-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+set("t", "<M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+set("t", "<M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Terminal
 -- local ttermUi = require("toggleterm.ui")
