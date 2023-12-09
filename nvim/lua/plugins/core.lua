@@ -33,9 +33,14 @@ local config = {
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
+
+      { "<leader>fs", "<Cmd>AddProject<CR>", desc = "Add Project" },
+      { "<leader>gC", "<Cmd>Telescope git_bcommits<CR>", desc = "buffer commits" },
       {
         "<leader>fl",
-        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        function()
+          require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
+        end,
         desc = "Find Plugin File",
       },
     },
