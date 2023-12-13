@@ -26,13 +26,13 @@ config.window_padding = {
 }
 
 -- For example, changing the color scheme:
--- config.color_scheme = "AdventureTime"
+config.color_scheme = "AdventureTime"
 -- config.color_scheme = 'Adventure'
 -- config.color_scheme = '3024 Night'
 -- config.color_scheme = 'Apathy (base16)'
 -- config.color_scheme = "Atelier Cave (base16)"
 -- config.color_scheme = "Atelier Forest (base16)"
-config.color_scheme = "Atelier Sulphurpool (base16)"
+-- config.color_scheme = "Atelier Sulphurpool (base16)"
 -- config.color_scheme = "Atelierdune (dark) (terminal.sexy)"
 -- config.color_scheme = 'Atom'
 -- config.color_scheme = "Ayu Dark (Gogh)"
