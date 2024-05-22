@@ -60,6 +60,7 @@ return {
       end,
       on_colors = function(colors)
         colors.bg = "#0d0414"
+        colors.bg_dark = "#150421"
         -- colors.hint = colors.orange
         -- colors.error = "#ff0000"
       end,
