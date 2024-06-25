@@ -5,6 +5,7 @@ return {
     opts = {
       defaults = {
         ["<leader>d"] = { name = "+debug" },
+        ["<leader>cp"] = { name = "+package info" },
       },
     },
   },

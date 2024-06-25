@@ -60,6 +60,14 @@ return {
               processId = require("dap.utils").pick_process,
               cwd = "${workspaceFolder}",
             },
+            {
+              type = "pwa-node",
+              request = "launch",
+              name = "Bun run",
+              program = "${file}",
+              runtimeExecutable = "bun",
+              cwd = "${workspaceFolder}",
+            },
           }
         end
       end

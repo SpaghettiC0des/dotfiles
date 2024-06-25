@@ -7,7 +7,19 @@ return {
     enabled = vim.fn.executable("make") == 1 or vim.fn.executable("cmake") == 1,
     config = function()
       LazyVim.on_load("telescope.nvim", function()
-        require("telescope").load_extension("fzf")
+        local t = require("telescope")
+        t.load_extension("flutter")
+        t.load_extension("fzf")
+        t.setup({
+          extensions = {
+            package_info = {
+              -- Optional theme (the extension doesn't set a default theme)
+              theme = "ivy",
+            },
+          },
+        })
+
+        require("telescope").load_extension("package_info")
       end)
     end,
   },
@@ -17,6 +29,7 @@ return {
 
     -- { "<leader>fs", "<Cmd>AddProject<CR>", desc = "Add Project" },
     { "<leader>gC", "<Cmd>Telescope git_bcommits<CR>", desc = "buffer commits" },
+    { "<leader>cpT", "<Cmd>Telescope package_info<CR>", desc = "Telescope" },
     {
       "<leader>fl",
       function()
@@ -48,7 +61,7 @@ return {
 
     local opts = {
       defaults = {
-        prompt_prefix = " ",
+        prompt_prefix = "  ",
         selection_caret = " ",
         get_selection_window = function()
           require("edgy").goto_main()

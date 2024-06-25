@@ -27,7 +27,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      style = "night",
+      -- style = "night",
       on_highlights = function(hl, c)
         local prompt = "#29202b"
         hl.TelescopeNormal = {
@@ -47,22 +47,34 @@ return {
         }
         hl.TelescopePromptTitle = {
           bg = prompt,
-          fg = prompt,
+          fg = c.fg_dark,
         }
         hl.TelescopePreviewTitle = {
           bg = c.bg_dark,
-          fg = c.bg_dark,
+          fg = c.fg_dark,
         }
         hl.TelescopeResultsTitle = {
           bg = c.bg_dark,
-          fg = c.bg_dark,
+          fg = c.fg_dark,
         }
       end,
       on_colors = function(colors)
-        colors.bg = "#0d0414"
-        colors.bg_dark = "#150421"
+        colors.bg = "#000000"
+        colors.bg_dark = "#0d0414"
+        -- colors.bg = "#0d0414"
+        -- colors.bg = "#150421"
+        -- colors.hint = "#6b32a3"
         -- colors.hint = colors.orange
-        -- colors.error = "#ff0000"
+        -- colors.hint = "#00ff00"
+        colors.error = "#ff0000"
+        -- colors.NeoTreeNormal = {
+        --   bg = "#0d0414",
+        --   fg = "#ff0000",
+        -- }
+        -- colors.NeoTreeNormalNC = {
+        --   bg = "#0d0414",
+        --   fg = "#ff0000",
+        -- }
       end,
     },
   },

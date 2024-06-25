@@ -79,6 +79,7 @@ return {
       local Offset = require("bufferline.offset")
       if not Offset.edgy then
         local get = Offset.get
+        ---@diagnostic disable-next-line: duplicate-set-field
         Offset.get = function()
           if package.loaded.edgy then
             local layout = require("edgy.config").layout
