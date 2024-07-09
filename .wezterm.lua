@@ -12,8 +12,8 @@ end
 
 -- This is where you actually apply your config choices
 
-config.window_background_opacity = 0.8
-config.macos_window_background_blur = 150
+-- config.window_background_opacity = 0.8
+-- config.macos_window_background_blur = 150
 config.font_size = 30.0
 -- config.font = wezterm.font("Operator Mono Lig")
 -- config.font = wezterm.font("BlexMono Nerd Font")
@@ -26,7 +26,7 @@ config.window_padding = {
 }
 
 -- For example, changing the color scheme:
-config.color_scheme = "AdventureTime"
+-- config.color_scheme = "AdventureTime"
 -- config.color_scheme = 'Adventure'
 -- config.color_scheme = '3024 Night'
 -- config.color_scheme = 'Apathy (base16)'
@@ -39,7 +39,7 @@ config.color_scheme = "AdventureTime"
 -- config.color_scheme = 'Ayu Mirage'
 -- config.color_scheme = "Night Owl (Gogh)"
 -- config.color_scheme = "Neon Night (Gogh)"
--- config.color_scheme = 'nightfox'
+-- config.color_scheme = "nightfox"
 -- config.color_scheme = 'Purple People Eater (Gogh)'
 -- config.color_scheme = "purplepeter"
 -- config.color_scheme = "Tokyo Night (Gogh)"
