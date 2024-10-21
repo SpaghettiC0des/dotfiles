@@ -14,3 +14,8 @@
 	program = /opt/homebrew/bin/gpg
 [core]
     editor = nvim -u ~/.config/nvim/init-git.vim
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
