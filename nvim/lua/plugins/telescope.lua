@@ -1,6 +1,12 @@
 return {
   "telescope.nvim",
   dependencies = {
+    {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      -- This will not install any breaking changes.
+      -- For major updates, this must be adjusted manually.
+      version = "^1.0.0",
+    },
     "nvim-telescope/telescope-fzf-native.nvim",
     build = vim.fn.executable("make") == 1 and "make"
       or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
@@ -20,6 +26,7 @@ return {
         })
 
         require("telescope").load_extension("package_info")
+        require("telescope").load_extension("live_grep_args")
       end)
     end,
   },
@@ -30,6 +37,11 @@ return {
     -- { "<leader>fs", "<Cmd>AddProject<CR>", desc = "Add Project" },
     { "<leader>gC", "<Cmd>Telescope git_bcommits<CR>", desc = "buffer commits" },
     { "<leader>cpT", "<Cmd>Telescope package_info<CR>", desc = "Telescope" },
+    {
+      "<leader>/",
+      ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+      desc = "Grep Args(Root Dir)",
+    },
     {
       "<leader>fl",
       function()

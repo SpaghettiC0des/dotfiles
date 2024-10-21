@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 return {
   {
     "akinsho/flutter-tools.nvim",

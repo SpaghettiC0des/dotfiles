@@ -1,3 +1,6 @@
+if false then
+  return {}
+end
 return {
   {
     "mfussenegger/nvim-lint",
