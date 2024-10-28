@@ -1,3 +1,4 @@
+local session_manager = require("wezterm-session-manager/session-manager")
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 local act = wezterm.action
@@ -9,7 +10,15 @@ local config = {}
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
-
+wezterm.on("save_session", function(window)
+	session_manager.save_state(window)
+end)
+wezterm.on("load_session", function(window)
+	session_manager.load_state(window)
+end)
+wezterm.on("restore_session", function(window)
+	session_manager.restore_state(window)
+end)
 -- This is where you actually apply your config choices
 
 -- config.window_background_opacity = 0.8
@@ -74,6 +83,10 @@ config.keys = {
 	{ key = "n", mods = "SHIFT|CTRL", action = "ToggleFullScreen" },
 	{ key = "v", mods = "SHIFT|CTRL", action = wezterm.action.PasteFrom("Clipboard") },
 	{ key = "c", mods = "SHIFT|CTRL", action = wezterm.action.CopyTo("Clipboard") },
+
+	{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
+	{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
+	{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
 }
 
 -- if wezterm.target_triple == "x86_64-pc-windows-msvc" then
