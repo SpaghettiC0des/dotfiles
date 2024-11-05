@@ -53,7 +53,7 @@ config.window_padding = {
 -- config.color_scheme = "purplepeter"
 -- config.color_scheme = "Tokyo Night (Gogh)"
 config.launch_menu = {}
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- This will create a new split and run your default program inside it
 	{
@@ -77,7 +77,7 @@ config.keys = {
 	{ key = "J", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
 	{ key = "K", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
 	{ key = "L", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
-	{ key = "q", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+	{ key = "q", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 
 	{ key = "n", mods = "SHIFT|CTRL", action = "ToggleFullScreen" },
@@ -87,6 +87,10 @@ config.keys = {
 	{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
 	{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
 	{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
+	-- Add key bindings for moving to next/previous tab
+	{ key = "Tab", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
+	{ key = "Tab", mods = "LEADER|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
+	{ key = ",", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
 }
 
 -- if wezterm.target_triple == "x86_64-pc-windows-msvc" then
