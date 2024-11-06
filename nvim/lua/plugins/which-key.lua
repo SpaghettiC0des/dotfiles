@@ -4,8 +4,8 @@ return {
     optional = true,
     opts = {
       spec = {
-        { "<leader>cp", group = "package info" },
-        { "<leader>d", group = "debug" },
+        { "<leader>cp", group = "+package info" },
+        -- { "<leader>d", group = "debug" },
       },
     },
   },

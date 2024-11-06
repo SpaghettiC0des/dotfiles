@@ -2,7 +2,9 @@ return {
   {
     "folke/edgy.nvim",
     opts = function(_, opts)
-      opts.left = {}
+      opts.left = {
+        { ft = "copilot-chat", title = "Copilot Chat", size = { width = 50 } },
+      }
       opts.right = {
         {
           title = "Neo-Tree",
