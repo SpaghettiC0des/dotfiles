@@ -54,7 +54,13 @@ config.window_padding = {
 -- config.color_scheme = "Tokyo Night (Gogh)"
 config.launch_menu = {}
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
+
 config.keys = {
+	{
+		key = "Enter",
+		mods = "LEADER",
+		action = wezterm.action.ActivateCopyMode,
+	},
 	-- This will create a new split and run your default program inside it
 	{
 		key = "p",
@@ -64,6 +70,7 @@ config.keys = {
 		}),
 	},
 	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+
 	{ key = "a", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x01" }) },
 	{ key = "-", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
 	{ key = "|", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
