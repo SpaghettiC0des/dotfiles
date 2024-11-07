@@ -11,11 +11,11 @@ map("i", "˚", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 map("i", "∆", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "˚", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 map("v", "∆", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
-
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+--
+-- map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+-- map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+-- map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+-- map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- map(
 --   "n",
@@ -64,18 +64,18 @@ set_keymap(
 )
 
 -- smart-splits keymaps
-vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)
-vim.keymap.set("n", "<A-j>", require("smart-splits").resize_down)
-vim.keymap.set("n", "<A-k>", require("smart-splits").resize_up)
-vim.keymap.set("n", "<A-l>", require("smart-splits").resize_right)
+map("n", "<A-h>", require("smart-splits").resize_left)
+map("n", "<A-j>", require("smart-splits").resize_down)
+map("n", "<A-k>", require("smart-splits").resize_up)
+map("n", "<A-l>", require("smart-splits").resize_right)
 -- moving between splits
-vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
-vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
-vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
-vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
-vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
+map("n", "<C-h>", require("smart-splits").move_cursor_left)
+map("n", "<C-j>", require("smart-splits").move_cursor_down)
+map("n", "<C-k>", require("smart-splits").move_cursor_up)
+map("n", "<C-l>", require("smart-splits").move_cursor_right)
+map("n", "<C-\\>", require("smart-splits").move_cursor_previous)
 -- swapping buffers between windows
-vim.keymap.set("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
-vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
-vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
-vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
+-- map("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
+-- map("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
+-- map("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
+-- map("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
