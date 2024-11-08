@@ -1,7 +1,7 @@
 {
   "CopilotChat.nvim": { "branch": "canary", "commit": "18d51754e9dc87d6b85f1e331c1fca0825384517" },
   "LazyVim": { "branch": "main", "commit": "73f14943bac5830905d715804ca581a91844272a" },
-  "SchemaStore.nvim": { "branch": "main", "commit": "3d2412ee76de350ac13b42e84876b2184d8847a5" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "5f0639d68cbea3ab8a9a24a51a5f984d86ea8438" },
   "alpha-nvim": { "branch": "main", "commit": "bf3c8bb8c02ed3d9644cc5bbc48e2bdc39349cd7" },
   "bufferline.nvim": { "branch": "main", "commit": "5cc447cb2b463cb499c82eaeabbed4f5fa6a0a44" },
   "catppuccin": { "branch": "main", "commit": "35d8057137af463c9f41f169539e9b190d57d269" },

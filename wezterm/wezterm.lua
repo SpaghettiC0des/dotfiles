@@ -99,10 +99,10 @@ config.keys = {
 	split_nav("move", "k"),
 	split_nav("move", "l"),
 	-- resize panes
-	split_nav("resize", "h"),
-	split_nav("resize", "j"),
-	split_nav("resize", "k"),
-	split_nav("resize", "l"),
+	split_nav("resize", "H"),
+	split_nav("resize", "J"),
+	split_nav("resize", "K"),
+	split_nav("resize", "L"),
 	{
 		key = "Enter",
 		mods = "LEADER",
