@@ -46,7 +46,7 @@ return {
     --   end, desc = "Find files"
     -- },
     -- { "<leader>fs", "<Cmd>AddProject<CR>", desc = "Add Project" },
-    { "<leader>gC", "<Cmd>Telescope git_bcommits<CR>", desc = "buffer commits" },
+    -- { "<leader>gC", "<Cmd>Telescope git_bcommits<CR>", desc = "buffer commits" },
     { "<leader>cpT", "<Cmd>Telescope package_info<CR>", desc = "Telescope" },
     -- {
     --   "<leader>/",
