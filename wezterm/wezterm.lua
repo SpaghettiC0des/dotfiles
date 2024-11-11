@@ -90,7 +90,7 @@ config.window_padding = {
 -- config.color_scheme = "purplepeter"
 -- config.color_scheme = "Tokyo Night (Gogh)"
 config.launch_menu = {}
-config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = ";", mods = "CTRL", timeout_milliseconds = 1000 }
 
 config.keys = {
 	-- move between split panes
