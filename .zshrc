@@ -370,6 +370,7 @@ alias firefox:default="/Applications/Firefox.app/Contents/MacOS/firefox -P 'defa
 alias firefox:fulcrum="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Fulcrum'"
 alias firefox:="/Applications/Firefox.app/Contents/MacOS/firefox -P 'AHP'"
 alias pnpx="pnpm dlx"
+alias vim="nvim"
 
 alias ..="cd .."
 alias ...="cd ../.."
