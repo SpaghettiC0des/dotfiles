@@ -62,8 +62,9 @@ end)
 -- config.macos_window_background_blur = 150
 config.font_size = 30.0
 -- config.font = wezterm.font("Operator Mono Lig")
--- config.font = wezterm.font("BlexMono Nerd Font")
-config.font = wezterm.font("Ligalex Mono")
+config.font = wezterm.font("BlexMono Nerd Font")
+-- config.font = wezterm.font("Ligalex Mono")
+-- config.font = wezterm.font("Menlo")
 config.window_padding = {
 	left = 0,
 	right = 0,
