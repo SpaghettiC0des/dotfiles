@@ -1,4 +1,5 @@
 return {
+  { "nvim-tree/nvim-web-devicons" },
   {
     "mrjones2014/smart-splits.nvim",
     lazy = false,
