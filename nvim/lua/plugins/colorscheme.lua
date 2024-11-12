@@ -28,55 +28,74 @@ return {
     priority = 1000,
     opts = {
       style = "night",
-      -- on_highlights = function(hl, c)
-      --   local prompt = "#29202b"
-      --   hl.TelescopeNormal = {
-      --     bg = c.bg_dark,
-      --     fg = c.fg_dark,
-      --   }
-      --   hl.TelescopeBorder = {
-      --     bg = c.bg_dark,
-      --     fg = c.bg_dark,
-      --   }
-      --   hl.TelescopePromptNormal = {
-      --     bg = prompt,
-      --   }
-      --   hl.TelescopePromptBorder = {
-      --     bg = prompt,
-      --     fg = prompt,
-      --   }
-      --   hl.TelescopePromptTitle = {
-      --     bg = prompt,
-      --     fg = c.fg_dark,
-      --   }
-      --   hl.TelescopePreviewTitle = {
-      --     bg = c.bg_dark,
-      --     fg = c.fg_dark,
-      --   }
-      --   hl.TelescopeResultsTitle = {
-      --     bg = c.bg_dark,
-      --     fg = c.fg_dark,
-      --   }
-      -- end,
+      on_highlights = function(hl, c)
+        local prompt = "#090810" -- Darker background for prompt
+        local results = "#090810" -- Matching background for consistency
+        local preview = "#090810" -- Matching background for consistency
+        local border_col = "#2d3149" -- Subtle but visible border
+
+        -- Normal text and borders
+        hl.TelescopeNormal = {
+          bg = results,
+          fg = c.fg,
+        }
+
+        -- Main border
+        hl.TelescopeBorder = {
+          bg = results,
+          fg = border_col,
+        }
+
+        -- Prompt section
+        hl.TelescopePromptNormal = {
+          bg = prompt,
+          fg = "#c0caf5", -- Brighter text for better visibility
+        }
+
+        hl.TelescopePromptBorder = {
+          bg = prompt,
+          fg = "#7aa2f7", -- Highlighted border for prompt
+        }
+
+        hl.TelescopePromptTitle = {
+          bg = "#7aa2f7",
+          fg = "#090810",
+          bold = true,
+        }
+
+        -- Preview section
+        hl.TelescopePreviewTitle = {
+          bg = "#bb9af7",
+          fg = "#090810",
+          bold = true,
+        }
+
+        hl.TelescopePreviewBorder = {
+          bg = preview,
+          fg = border_col,
+        }
+
+        -- Results section
+        hl.TelescopeResultsTitle = {
+          bg = "#9ece6a",
+          fg = "#090810",
+          bold = true,
+        }
+
+        hl.TelescopeResultsBorder = {
+          bg = results,
+          fg = border_col,
+        }
+
+        -- Selection highlighting
+        hl.TelescopeSelection = {
+          bg = "#2d3149",
+          fg = "#c0caf5",
+        }
+      end,
       on_colors = function(colors)
-        colors.bg = "#070010"
-        colors.bg_dark = "#070010"
-        -- colors.bg = "#000000"
-        -- colors.bg_dark = "#0d0414"
-        -- colors.bg = "#0d0414"
-        -- colors.bg = "#150421"
-        -- colors.hint = "#6b32a3"
-        -- colors.hint = colors.orange
-        -- colors.hint = "#00ff00"
-        colors.error = "#ff0000"
-        colors.NeoTreeNormal = {
-          bg = "#0d0414",
-          fg = "#ff0000",
-        }
-        colors.NeoTreeNormalNC = {
-          bg = "#0d0414",
-          fg = "#ff0000",
-        }
+        colors.bg = "#090810" -- Very dark purple-black
+        colors.bg_dark = "#06050c" -- Almost pure black with slight purple
       end,
     },
   },
