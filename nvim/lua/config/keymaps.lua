@@ -4,13 +4,16 @@
 local map = vim.keymap.set
 map("i", "jk", "<esc>", { noremap = true, silent = true })
 
--- Move Lines
-map("n", "∆", "<cmd>m .+1<cr>==", { desc = "Move Down" })
-map("n", "˚", "<cmd>m .-2<cr>==", { desc = "Move Up" })
-map("i", "˚", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "∆", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "˚", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
-map("v", "∆", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
+-- Remove default move Lines
+vim.keymap.del({ "n", "v", "i" }, "<M-j>")
+vim.keymap.del({ "n", "v", "i" }, "<M-k>")
+-- Move lines
+map("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
+map("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+map("i", "<A-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move line down" })
+map("i", "<A-K>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move line up" })
+map("v", "<A-J>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
+map("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 --
 -- map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 -- map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
@@ -64,16 +67,16 @@ set_keymap(
 )
 
 -- smart-splits keymaps
-map("n", "<A-H>", require("smart-splits").resize_left)
-map("n", "<A-J>", require("smart-splits").resize_down)
-map("n", "<A-K>", require("smart-splits").resize_up)
-map("n", "<A-L>", require("smart-splits").resize_right)
+map("n", "<A-h>", require("smart-splits").resize_left, { desc = "Resize left" })
+map("n", "<A-j>", require("smart-splits").resize_down, { desc = "Resize down" })
+map("n", "<A-k>", require("smart-splits").resize_up, { desc = "Resize up" })
+map("n", "<A-l>", require("smart-splits").resize_right, { desc = "Resize right" })
 -- moving between splits
-map("n", "<C-h>", require("smart-splits").move_cursor_left)
-map("n", "<C-j>", require("smart-splits").move_cursor_down)
-map("n", "<C-k>", require("smart-splits").move_cursor_up)
-map("n", "<C-l>", require("smart-splits").move_cursor_right)
-map("n", "<C-\\>", require("smart-splits").move_cursor_previous)
+map("n", "<C-h>", require("smart-splits").move_cursor_left, { desc = "Move cursor left" })
+map("n", "<C-j>", require("smart-splits").move_cursor_down, { desc = "Move cursor down" })
+map("n", "<C-k>", require("smart-splits").move_cursor_up, { desc = "Move cursor up" })
+map("n", "<C-l>", require("smart-splits").move_cursor_right, { desc = "Move cursor right" })
+map("n", "<C-\\>", require("smart-splits").move_cursor_previous, { desc = "Move cursor to previous" })
 -- swapping buffers between windows
 -- map("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
 -- map("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
