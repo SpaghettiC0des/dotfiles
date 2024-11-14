@@ -29,73 +29,41 @@ return {
     opts = {
       style = "night",
       on_highlights = function(hl, c)
-        local prompt = "#090810" -- Darker background for prompt
-        local results = "#090810" -- Matching background for consistency
-        local preview = "#090810" -- Matching background for consistency
-        local border_col = "#2d3149" -- Subtle but visible border
+        -- Existing Telescope configurations
+        local prompt = "#090810"
+        local results = "#090810"
+        local preview = "#090810"
+        local border_col = "#2d3149"
 
-        -- Normal text and borders
-        hl.TelescopeNormal = {
-          bg = results,
-          fg = c.fg,
-        }
+        -- Telescope configs (keeping your existing setup)
+        hl.TelescopeNormal = { bg = results, fg = c.fg }
+        hl.TelescopeBorder = { bg = results, fg = border_col }
+        hl.TelescopePromptNormal = { bg = prompt, fg = "#c0caf5" }
+        hl.TelescopePromptBorder = { bg = prompt, fg = "#7aa2f7" }
+        hl.TelescopePromptTitle = { bg = "#7aa2f7", fg = "#090810", bold = true }
+        hl.TelescopePreviewTitle = { bg = "#bb9af7", fg = "#090810", bold = true }
+        hl.TelescopePreviewBorder = { bg = preview, fg = border_col }
+        hl.TelescopeResultsTitle = { bg = "#9ece6a", fg = "#090810", bold = true }
+        hl.TelescopeResultsBorder = { bg = results, fg = border_col }
+        hl.TelescopeSelection = { bg = "#2d3149", fg = "#c0caf5" }
 
-        -- Main border
-        hl.TelescopeBorder = {
-          bg = results,
-          fg = border_col,
-        }
-
-        -- Prompt section
-        hl.TelescopePromptNormal = {
-          bg = prompt,
-          fg = "#c0caf5", -- Brighter text for better visibility
-        }
-
-        hl.TelescopePromptBorder = {
-          bg = prompt,
-          fg = "#7aa2f7", -- Highlighted border for prompt
-        }
-
-        hl.TelescopePromptTitle = {
-          bg = "#7aa2f7",
-          fg = "#090810",
-          bold = true,
-        }
-
-        -- Preview section
-        hl.TelescopePreviewTitle = {
-          bg = "#bb9af7",
-          fg = "#090810",
-          bold = true,
-        }
-
-        hl.TelescopePreviewBorder = {
-          bg = preview,
-          fg = border_col,
-        }
-
-        -- Results section
-        hl.TelescopeResultsTitle = {
-          bg = "#9ece6a",
-          fg = "#090810",
-          bold = true,
-        }
-
-        hl.TelescopeResultsBorder = {
-          bg = results,
-          fg = border_col,
-        }
-
-        -- Selection highlighting
-        hl.TelescopeSelection = {
-          bg = "#2d3149",
-          fg = "#c0caf5",
-        }
+        -- LazyGit customizations
+        hl.LazyGitNormal = { bg = "#090810", fg = "#c0caf5" }
+        hl.LazyGitBorder = { fg = border_col }
+        hl.LazyGitBranch = { fg = "#7aa2f7", bold = true }
+        hl.LazyGitFileName = { fg = "#bb9af7" }
+        hl.LazyGitCommitHash = { fg = "#9ece6a" }
+        hl.LazyGitCommitMessage = { fg = "#c0caf5" }
+        hl.LazyGitStatusAdded = { fg = "#9ece6a" }
+        hl.LazyGitStatusModified = { fg = "#7aa2f7" }
+        hl.LazyGitStatusDeleted = { fg = "#f7768e" }
+        hl.LazyGitStatusUntracked = { fg = "#bb9af7" }
+        hl.LazyGitInactiveBorder = { fg = "#2d3149" }
+        hl.LazyGitHeader = { bg = "#2d3149", fg = "#c0caf5", bold = true }
       end,
       on_colors = function(colors)
-        colors.bg = "#090810" -- Very dark purple-black
-        colors.bg_dark = "#06050c" -- Almost pure black with slight purple
+        colors.bg = "#090810"
+        colors.bg_dark = "#06050c"
       end,
     },
   },
