@@ -1,10 +1,18 @@
 return {
+  {
+    "olrtg/nvim-emmet",
+    config = function()
+      vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
+    end,
+  },
   { "nvim-tree/nvim-web-devicons" },
   {
     "mrjones2014/smart-splits.nvim",
     lazy = false,
     config = function()
-      require("smart-splits").setup()
+      require("smart-splits").setup({
+        ignored_filetypes = {},
+      })
     end,
   },
   -- startup
