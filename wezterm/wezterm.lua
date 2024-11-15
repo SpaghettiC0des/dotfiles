@@ -91,7 +91,7 @@ config.window_padding = {
 -- config.color_scheme = "purplepeter"
 -- config.color_scheme = "Tokyo Night (Gogh)"
 config.launch_menu = {}
-config.leader = { key = ";", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "l", mods = "CMD", timeout_milliseconds = 1000 }
 
 config.keys = {
 	-- move between split panes
@@ -158,6 +158,26 @@ config.keys = {
 	{ key = "Tab", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
 	{ key = "Tab", mods = "LEADER|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
 	{ key = ",", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
+	{
+		key = "/",
+		mods = "CTRL",
+		action = wezterm.action_callback(function(_, pane)
+			local tab = pane:tab()
+			local panes = tab:panes_with_info()
+			if #panes == 1 then
+				pane:split({
+					direction = "Right",
+					size = 0.4,
+				})
+			elseif not panes[1].is_zoomed then
+				panes[1].pane:activate()
+				tab:set_zoomed(true)
+			elseif panes[1].is_zoomed then
+				tab:set_zoomed(false)
+				panes[2].pane:activate()
+			end
+		end),
+	},
 }
 
 -- if wezterm.target_triple == "x86_64-pc-windows-msvc" then
