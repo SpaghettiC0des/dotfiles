@@ -8,7 +8,6 @@ return {
     },
     config = function(_, opts)
       local chat = require("CopilotChat")
-      require("CopilotChat.integrations.cmp").setup()
 
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-chat",
