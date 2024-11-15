@@ -7,6 +7,7 @@ map("i", "jk", "<esc>", { noremap = true, silent = true })
 -- Remove default move Lines
 vim.keymap.del({ "n", "v", "i" }, "<M-j>")
 vim.keymap.del({ "n", "v", "i" }, "<M-k>")
+vim.keymap.del("n", "<C-/>")
 -- Move lines
 map("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
 map("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
