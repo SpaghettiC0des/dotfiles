@@ -29,40 +29,53 @@ return {
     opts = {
       style = "night",
       on_highlights = function(hl, c)
-        -- Existing Telescope configurations
-        local prompt = "#090810"
-        local results = "#090810"
-        local preview = "#090810"
-        local border_col = "#2d3149"
+        -- Color palette
+        local colors = {
+          deep_dark = "#090810",
+          -- deep_dark = "#000000",
+          darker = "#06050c",
+          border = "#2d3149",
+          text = {
+            primary = "#c0caf5",
+            dark = "#090810",
+          },
+          accent = {
+            blue = "#7aa2f7",
+            purple = "#bb9af7",
+            green = "#9ece6a",
+            red = "#f7768e",
+          },
+        }
 
-        -- Telescope configs (keeping your existing setup)
-        hl.TelescopeNormal = { bg = results, fg = c.fg }
-        hl.TelescopeBorder = { bg = results, fg = border_col }
-        hl.TelescopePromptNormal = { bg = prompt, fg = "#c0caf5" }
-        hl.TelescopePromptBorder = { bg = prompt, fg = "#7aa2f7" }
-        hl.TelescopePromptTitle = { bg = "#7aa2f7", fg = "#090810", bold = true }
-        hl.TelescopePreviewTitle = { bg = "#bb9af7", fg = "#090810", bold = true }
-        hl.TelescopePreviewBorder = { bg = preview, fg = border_col }
-        hl.TelescopeResultsTitle = { bg = "#9ece6a", fg = "#090810", bold = true }
-        hl.TelescopeResultsBorder = { bg = results, fg = border_col }
-        hl.TelescopeSelection = { bg = "#2d3149", fg = "#c0caf5" }
+        -- Telescope configs
+        hl.TelescopeNormal = { bg = colors.deep_dark, fg = c.fg }
+        hl.TelescopeBorder = { bg = colors.deep_dark, fg = colors.border }
+        hl.TelescopePromptNormal = { bg = colors.deep_dark, fg = colors.text.primary }
+        hl.TelescopePromptBorder = { bg = colors.deep_dark, fg = colors.accent.blue }
+        hl.TelescopePromptTitle = { bg = colors.accent.blue, fg = colors.text.dark, bold = true }
+        hl.TelescopePreviewTitle = { bg = colors.accent.purple, fg = colors.text.dark, bold = true }
+        hl.TelescopePreviewBorder = { bg = colors.deep_dark, fg = colors.border }
+        hl.TelescopeResultsTitle = { bg = colors.accent.green, fg = colors.text.dark, bold = true }
+        hl.TelescopeResultsBorder = { bg = colors.deep_dark, fg = colors.border }
+        hl.TelescopeSelection = { bg = colors.border, fg = colors.text.primary }
 
         -- LazyGit customizations
-        hl.LazyGitNormal = { bg = "#090810", fg = "#c0caf5" }
-        hl.LazyGitBorder = { fg = border_col }
-        hl.LazyGitBranch = { fg = "#7aa2f7", bold = true }
-        hl.LazyGitFileName = { fg = "#bb9af7" }
-        hl.LazyGitCommitHash = { fg = "#9ece6a" }
-        hl.LazyGitCommitMessage = { fg = "#c0caf5" }
-        hl.LazyGitStatusAdded = { fg = "#9ece6a" }
-        hl.LazyGitStatusModified = { fg = "#7aa2f7" }
-        hl.LazyGitStatusDeleted = { fg = "#f7768e" }
-        hl.LazyGitStatusUntracked = { fg = "#bb9af7" }
-        hl.LazyGitInactiveBorder = { fg = "#2d3149" }
-        hl.LazyGitHeader = { bg = "#2d3149", fg = "#c0caf5", bold = true }
+        hl.LazyGitNormal = { bg = colors.deep_dark, fg = colors.text.primary }
+        hl.LazyGitBorder = { fg = colors.border }
+        hl.LazyGitBranch = { fg = colors.accent.blue, bold = true }
+        hl.LazyGitFileName = { fg = colors.accent.purple }
+        hl.LazyGitCommitHash = { fg = colors.accent.green }
+        hl.LazyGitCommitMessage = { fg = colors.text.primary }
+        hl.LazyGitStatusAdded = { fg = colors.accent.green }
+        hl.LazyGitStatusModified = { fg = colors.accent.blue }
+        hl.LazyGitStatusDeleted = { fg = colors.accent.red }
+        hl.LazyGitStatusUntracked = { fg = colors.accent.purple }
+        hl.LazyGitInactiveBorder = { fg = colors.border }
+        hl.LazyGitHeader = { bg = colors.border, fg = colors.text.primary, bold = true }
       end,
       on_colors = function(colors)
-        colors.bg = "#090810"
+        -- colors.bg = "#090810"
+        colors.bg = "#000000"
         colors.bg_dark = "#06050c"
       end,
     },
