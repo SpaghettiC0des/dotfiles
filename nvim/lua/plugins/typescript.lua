@@ -1,8 +1,19 @@
 return {
   {
     "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          table.insert(opts.ensure_installed, "js-debug-adapter")
+        end,
+      },
+    },
     opts = function()
       local dap = require("dap")
+      dap.set_log_level("TRACE")
       if not dap.adapters["pwa-node"] then
         require("dap").adapters["pwa-node"] = {
           type = "server",
@@ -12,8 +23,7 @@ return {
             command = "node",
             -- 💀 Make sure to update this path to point to your installation
             args = {
-              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
+              LazyVim.get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
               "${port}",
             },
           },
@@ -33,33 +43,39 @@ return {
         end
       end
 
-      for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
-        if not dap.configurations[language] then
-          dap.configurations[language] = {
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch file",
-              program = "${file}",
-              cwd = "${workspaceFolder}",
-            },
-            {
-              type = "pwa-node",
-              request = "attach",
-              name = "Attach",
-              processId = require("dap.utils").pick_process,
-              cwd = "${workspaceFolder}",
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Bun run",
-              program = "${file}",
-              runtimeExecutable = "bun",
-              cwd = "${workspaceFolder}",
-            },
-          }
-        end
+      local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+
+      local vscode = require("dap.ext.vscode")
+      vscode.type_to_filetypes["node"] = js_filetypes
+      vscode.type_to_filetypes["pwa-node"] = js_filetypes
+
+      for _, language in ipairs(js_filetypes) do
+        dap.configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file with Bun",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+            runtimeExecutable = "bun",
+            sourceMaps = true,
+            console = "integratedTerminal",
+          },
+        }
       end
     end,
   },
