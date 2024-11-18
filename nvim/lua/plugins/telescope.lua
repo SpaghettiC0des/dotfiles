@@ -27,7 +27,7 @@ return {
           },
         })
 
-        require("telescope").load_extension("package_info")
+        t.load_extension("package_info")
         -- require("telescope").load_extension("live_grep_args")
       end)
     end,
