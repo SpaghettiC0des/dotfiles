@@ -1,6 +1,6 @@
-if LazyVim.has("telescope.nvim") then
-  return {}
-end
+-- if LazyVim.has("telescope.nvim") then
+--   return {}
+-- end
 
 if lazyvim_docs then
   -- In case you don't want to use `:LazyExtras`,
@@ -198,12 +198,13 @@ return {
         opts[1] = nil
       end
 
-      vim.list_extend(opts, { "telescope" })
+      -- vim.list_extend(opts, { "telescope" })
 
       require("fzf-lua").setup(opts)
     end,
     init = function()
       LazyVim.on_very_lazy(function()
+        ---@diagnostic disable-next-line: duplicate-set-field
         vim.ui.select = function(...)
           require("lazy").load({ plugins = { "fzf-lua" } })
           local opts = LazyVim.opts("fzf-lua") or {}
