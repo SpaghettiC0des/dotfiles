@@ -58,6 +58,7 @@ wezterm.on("restore_session", function(window)
 end)
 -- This is where you actually apply your config choices
 
+config.max_fps = 240
 -- config.window_background_opacity = 0.8
 -- config.macos_window_background_blur = 150
 config.font_size = 30.0
