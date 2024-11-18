@@ -37,13 +37,13 @@ return {
           pinned = true,
           open = "Neotree position=top buffers",
         },
-        { title = "Outline", ft = "Outline", pinned = true, open = "Outline" },
-        -- {
-        --   title = "Aerial",
-        --   ft = "aerial",
-        --   pinned = true,
-        --   open = "AerialOpen",
-        -- },
+        -- { title = "Outline", ft = "Outline", pinned = true, open = "Outline" },
+        {
+          title = "Aerial",
+          ft = "aerial",
+          pinned = true,
+          open = "AerialOpen",
+        },
         "neo-tree",
       }
       opts.animate = {
