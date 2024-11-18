@@ -1,6 +1,6 @@
--- if LazyVim.has("telescope.nvim") then
---   return {}
--- end
+if LazyVim.has("telescope.nvim") then
+  return {}
+end
 
 if lazyvim_docs then
   -- In case you don't want to use `:LazyExtras`,
