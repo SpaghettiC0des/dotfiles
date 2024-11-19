@@ -1,4 +1,7 @@
 return {
+  {
+    "dharmx/telescope-media.nvim",
+  },
   "telescope.nvim",
   dependencies = {
     -- {
@@ -14,8 +17,10 @@ return {
     config = function()
       LazyVim.on_load("telescope.nvim", function()
         local t = require("telescope")
+        t.load_extension("media")
         t.load_extension("flutter")
         t.load_extension("fzf")
+        t.load_extension("package_info")
         t.setup({
           -- pickers = { find_files = { hidden = true } },
           -- find_command = { "rg", "--files", "--iglob", "!.git", "--hidden" },
@@ -27,7 +32,6 @@ return {
           },
         })
 
-        t.load_extension("package_info")
         -- require("telescope").load_extension("live_grep_args")
       end)
     end,
