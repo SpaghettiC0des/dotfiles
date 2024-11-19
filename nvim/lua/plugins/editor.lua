@@ -5,7 +5,6 @@ return {
       vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
     end,
   },
-  { "nvim-tree/nvim-web-devicons" },
   {
     "mrjones2014/smart-splits.nvim",
     lazy = false,
@@ -18,6 +17,7 @@ return {
   -- startup
   {
     "goolord/alpha-nvim",
+    enabled = false,
     opts = function()
       local dashboard = require("alpha.themes.dashboard")
       local logo1 = [[
