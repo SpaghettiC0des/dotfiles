@@ -7,32 +7,32 @@ return {
       },
     },
   },
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = {
-  --     servers = { eslint = {} },
-  --     setup = {
-  --       eslint = function()
-  --         require("lazyvim.util").lsp.on_attach(function(client)
-  --           if client.name == "eslint" then
-  --             client.server_capabilities.documentFormattingProvider = true
-  --           elseif client.name == "tsserver" then
-  --             client.server_capabilities.documentFormattingProvider = false
-  --           end
-  --         end)
-  --       end,
-  --     },
-  --   },
-  -- },
   {
-    "nvimtools/none-ls.nvim",
-    optional = true,
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, nls.builtins.formatting.prettier)
-    end,
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = { eslint = {} },
+      setup = {
+        eslint = function()
+          require("lazyvim.util").lsp.on_attach(function(client)
+            if client.name == "eslint" then
+              client.server_capabilities.documentFormattingProvider = true
+            elseif client.name == "tsserver" then
+              client.server_capabilities.documentFormattingProvider = false
+            end
+          end)
+        end,
+      },
+    },
   },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   optional = true,
+  -- opts = function(_, opts)
+  --   local nls = require("null-ls")
+  --   opts.sources = opts.sources or {}
+  --   table.insert(opts.sources, nls.builtins.formatting.prettier)
+  -- end,
+  -- },
   -- {
   --   "stevearc/conform.nvim",
   --   optional = true,
