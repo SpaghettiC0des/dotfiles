@@ -2,12 +2,14 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local map = vim.keymap.set
-map("i", "jk", "<esc>", { noremap = true, silent = true })
-map("i", "kj", "<esc>", { noremap = true, silent = true })
+local esc_save = "<esc>:w<cr>"
+map("i", "jk", esc_save, { noremap = true, silent = true })
+map("i", "kj", esc_save, { noremap = true, silent = true })
 
 -- Remove default move Lines
 vim.keymap.del({ "n", "v", "i" }, "<M-j>")
 vim.keymap.del({ "n", "v", "i" }, "<M-k>")
+-- Remove this terminal mapping, because we are now using wezterm as a bottom pane terminal
 vim.keymap.del("n", "<C-/>")
 -- Move lines
 map("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
