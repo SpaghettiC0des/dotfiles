@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local map = vim.keymap.set
-local esc_save = "<esc>:w<cr>"
+local esc_save = "<esc>"
 map("i", "jk", esc_save, { noremap = true, silent = true })
 map("i", "kj", esc_save, { noremap = true, silent = true })
 
