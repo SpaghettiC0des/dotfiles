@@ -1,7 +1,8 @@
 return {
-  -- {
-  --   "oxfist/night-owl.nvim",
-  -- },
+  { "kepano/flexoki-neovim", name = "flexoki" },
+  {
+    "oxfist/night-owl.nvim",
+  },
   -- {
   --   "projekt0n/github-nvim-theme",
   --   lazy = false,
