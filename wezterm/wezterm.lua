@@ -57,25 +57,30 @@ end)
 wezterm.on("restore_session", function(window)
 	session_manager.restore_state(window)
 end)
+config.default_cwd = "~/codes"
 -- This is where you actually apply your config choices
 wezterm.on("gui-startup", function(cmd)
-	local tab, pane, window = mux.spawn_window(cmd or {})
-	local editorTab = tab
+	local editor_tab, editor_pane, window = mux.spawn_window(cmd or {})
+	-- local tab, pane, window = mux.spawn_window(cmd or {})
 	window:gui_window():maximize()
-	tab:set_title("editor")
-	pane:split({ size = 0.3, direction = "Bottom" })
+	editor_tab:set_title("editor")
+	-- this will replace the Lazyvim terminal mapped to <C-/>
+	editor_pane:split({
+		size = 0.3,
+		direction = "Bottom",
+	})
 	---@diagnostic disable-next-line: redefined-local
 	local tab, pane, window = window:spawn_tab({})
 	tab:set_title("terminal")
 	pane:split({ size = 0.5, direction = "Bottom" })
-	editorTab:activate()
-	editorTab:panes()[1]:activate()
+	editor_tab:activate()
+	editor_tab:panes()[1]:activate()
 end)
 
 config.max_fps = 120
 config.window_background_opacity = 0.5
 config.macos_window_background_blur = 80
-config.font_size = 25.0
+config.font_size = 22.0
 -- config.font = wezterm.font("Operator Mono Lig")
 config.font = wezterm.font("BlexMono Nerd Font")
 -- config.font = wezterm.font("Ligalex Mono")
