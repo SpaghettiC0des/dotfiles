@@ -109,7 +109,7 @@ config.window_padding = {
 -- config.color_scheme = "nightfox"
 -- config.color_scheme = 'Purple People Eater (Gogh)'
 -- config.color_scheme = "purplepeter"
--- config.color_scheme = "Tokyo Night (Gogh)"
+config.color_scheme = "Tokyo Night (Gogh)"
 config.launch_menu = {}
 config.leader = { key = "l", mods = "CMD", timeout_milliseconds = 1000 }
 
@@ -163,7 +163,7 @@ config.keys = {
 	{ key = "s", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
 	{ key = "z", mods = "LEADER", action = "TogglePaneZoomState" },
 	{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
-	{ key = "l", mods = "CTRL", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
+	{ key = "l", mods = "CTRL|META", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
 	{ key = "q", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 
