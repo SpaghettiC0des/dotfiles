@@ -163,7 +163,7 @@ config.keys = {
 	{ key = "s", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
 	{ key = "z", mods = "LEADER", action = "TogglePaneZoomState" },
 	{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
-	{ key = "l", mods = "CTRL|META", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
+	{ key = "l", mods = "LEADER", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
 	{ key = "q", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 
