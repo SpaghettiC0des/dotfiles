@@ -130,11 +130,7 @@ config.keys = {
 		mods = "LEADER",
 		action = wezterm.action.ActivateCopyMode,
 	},
-	{
-		mods = "LEADER",
-		key = "m",
-		action = wezterm.action.TogglePaneZoomState,
-	}, -- rotate panes
+	-- rotate panes
 	{
 		mods = "LEADER",
 		key = "Space",
