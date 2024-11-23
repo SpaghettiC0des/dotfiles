@@ -153,7 +153,6 @@ config.keys = {
 		}),
 	},
 	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-
 	{ key = "a", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x01" }) },
 	{ key = "v", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
 	{ key = "s", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
@@ -168,11 +167,11 @@ config.keys = {
 	{ key = "c", mods = "SHIFT|CTRL", action = wezterm.action.CopyTo("Clipboard") },
 
 	{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
-	{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
+	{ key = "D", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
 	{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
 	-- Add key bindings for moving to next/previous tab
-	{ key = "Tab", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
-	{ key = "Tab", mods = "LEADER|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
+	{ key = "L", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
+	{ key = "H", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = -1 }) },
 	{ key = ",", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
 	{
 		key = "/",
