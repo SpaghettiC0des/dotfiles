@@ -46,7 +46,7 @@ WORDCHARS=${WORDCHARS//[\/]}
 #
 
 # Set a custom prefix for the generated aliases. The default prefix is 'G'.
-#zstyle ':zim:git' aliases-prefix 'g'
+zstyle ':zim:git' aliases-prefix 'g'
 
 #
 # input
@@ -74,7 +74,7 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 #
 # zsh-syntax-highlighting
@@ -128,17 +128,8 @@ for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
 
-alias zshconfig="code ~/.zshrc"
-alias zimconfig="code ~/.zimrc"
-alias hostfile="code /etc/hosts"
-alias ssh:nowcom="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/nowcom"
 alias ssh:github="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/github"
-alias ssh:merkle="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/merkle"
 alias ssh:fulcrum="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/fulcrum"
-alias ssh:ae="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/appevolve"
-alias ssh:ns="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/netsells"
-alias firefox:nowcom="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Nowcom'"
-alias firefox:merkle="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Merkle'"
 alias firefox:default="/Applications/Firefox.app/Contents/MacOS/firefox -P 'default'"
 alias firefox:fulcrum="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Fulcrum'"
 alias firefox:="/Applications/Firefox.app/Contents/MacOS/firefox -P 'AHP'"
