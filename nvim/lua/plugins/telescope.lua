@@ -1,6 +1,11 @@
 return {
   {
-    "dharmx/telescope-media.nvim",
+    "HendrikPetertje/telescope-media-files.nvim",
+    branch = "fix-replace-ueber-with-viu",
+    dependencies = {
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim",
+    },
   },
   "telescope.nvim",
   dependencies = {
@@ -17,10 +22,7 @@ return {
     config = function()
       LazyVim.on_load("telescope.nvim", function()
         local t = require("telescope")
-        t.load_extension("media")
-        t.load_extension("flutter")
         t.load_extension("fzf")
-        t.load_extension("package_info")
         t.setup({
           -- pickers = { find_files = { hidden = true } },
           -- find_command = { "rg", "--files", "--iglob", "!.git", "--hidden" },
@@ -58,7 +60,7 @@ return {
     --   desc = "Grep Args(Root Dir)",
     -- },
     {
-      "<leader>fl",
+      "<leader>fp",
       function()
         require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
       end,
@@ -122,6 +124,24 @@ return {
             ["q"] = actions.close,
           },
         },
+        -- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+        -- grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+        -- qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+        file_ignore_patterns = { "node_modules" },
+      },
+      pickers = {
+        find_files = {
+          -- Enable preview for image files
+          previewer = true,
+        },
+      },
+      extensions = {
+        media_files = {
+          -- filetypes whitelist
+          filetypes = { "png", "webp", "jpg", "jpeg", "gif" },
+          -- find command (defaults to `fd`)
+          -- find_cmd = "rg",
+        },
       },
     }
 
@@ -149,6 +169,11 @@ return {
     opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
       mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
     })
+
+    local t = require("telescope")
+    t.load_extension("flutter")
+    t.load_extension("package_info")
+    t.load_extension("media_files")
 
     return opts
   end,
