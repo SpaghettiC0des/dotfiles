@@ -4,7 +4,7 @@ return {
     branch = "canary",
     cmd = "CopilotChat",
     opts = {
-      model = "claude-3.5-sonnet",
+      -- model = "claude-3.5-sonnet",
     },
     config = function(_, opts)
       local chat = require("CopilotChat")
