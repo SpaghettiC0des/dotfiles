@@ -199,3 +199,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=$PATH:$HOME/.maestro/bin
 export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
+
+autoload_nvmrc() {
+  if [ -f .nvmrc ] && [ -r .nvmrc ]; then
+    nvm use
+  fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd autoload_nvmrc
+autoload_nvmrc
