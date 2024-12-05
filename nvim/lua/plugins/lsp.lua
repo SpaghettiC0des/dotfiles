@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 return {
   {
     "stevearc/conform.nvim",
