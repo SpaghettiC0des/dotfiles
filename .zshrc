@@ -199,7 +199,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=$PATH:$HOME/.maestro/bin
 export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
-
+export DPRINT_INSTALL="/Users/karlmarxlopez/.dprint"
+export PATH="$DPRINT_INSTALL/bin:$PATH"
 autoload_nvmrc() {
   if [ -f .nvmrc ] && [ -r .nvmrc ]; then
     nvm use
