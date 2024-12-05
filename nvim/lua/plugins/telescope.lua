@@ -58,6 +58,11 @@ return {
         desc = "Grep (root dir)",
       },
       {
+        "<leader>s-",
+        "<cmd>:Telescope grep_string<CR>",
+        desc = "Search word under cursor",
+      },
+      {
         "<leader>fl",
         function()
           require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
