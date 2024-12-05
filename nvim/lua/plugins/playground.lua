@@ -1,8 +1,8 @@
 return {
-  {
-    "sphamba/smear-cursor.nvim",
-    opts = {},
-  },
+  -- {
+  --   "sphamba/smear-cursor.nvim",
+  --   opts = {},
+  -- },
   -- {
   --   "tris203/precognition.nvim",
   --   --event = "VeryLazy",

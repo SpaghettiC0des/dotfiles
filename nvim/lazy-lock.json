@@ -64,7 +64,6 @@
   "refactoring.nvim": { "branch": "master", "commit": "2db6d378e873de31d18ade549c2edba64ff1c2e3" },
   "render-markdown.nvim": { "branch": "main", "commit": "7674543331701d05dc9f878e1fe62d1107dc2f5e" },
   "smart-splits.nvim": { "branch": "master", "commit": "07f9614f5b9405392d3b22fca9f51a9857f2d9b3" },
-  "smear-cursor.nvim": { "branch": "main", "commit": "ee62ace831461704cf3733414820328451e1ead3" },
   "snacks.nvim": { "branch": "main", "commit": "974bccb126b6b5d7170c519c380207069d23f557" },
   "tailwindcss-colorizer-cmp.nvim": { "branch": "main", "commit": "3d3cd95e4a4135c250faf83dd5ed61b8e5502b86" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "cf48d4dfce44e0b9a2e19a008d6ec6ea6f01a83b" },
