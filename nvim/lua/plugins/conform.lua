@@ -22,6 +22,7 @@ local function biome_lsp_or_prettier(bufnr)
     "prettier.config.js",
     "prettier.config.cjs",
   }, { upward = true })[1]
+
   if has_prettier then
     return { "prettier" }
   end
@@ -33,6 +34,14 @@ return {
     "stevearc/conform.nvim",
     ---@class ConformOpts
     opts = {
+      formatters = {
+        biome = { require_cwd = true },
+        prettier = {
+          condition = function(_, ctx)
+            return M.has_parser(ctx) and (vim.g.lazyvim_prettier_needs_config ~= true or M.has_config(ctx))
+          end,
+        },
+      },
       formatters_by_ft = {
         javascript = biome_lsp_or_prettier,
         typescript = biome_lsp_or_prettier,
