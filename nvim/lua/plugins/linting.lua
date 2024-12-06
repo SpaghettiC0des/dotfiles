@@ -4,18 +4,18 @@ return {
     opts = {
       linters_by_ft = {
         markdown = { "markdownlint" },
-        javascript = {
-          "eslint",
-        },
-        typescript = {
-          "eslint",
-        },
-        javascriptreact = {
-          "eslint",
-        },
-        tyescriptreact = {
-          "eslint",
-        },
+        -- javascript = {
+        --   "eslint",
+        -- },
+        -- typescript = {
+        --   "eslint",
+        -- },
+        -- javascriptreact = {
+        --   "eslint",
+        -- },
+        -- tyescriptreact = {
+        --   "eslint",
+        -- },
       },
     },
   },
