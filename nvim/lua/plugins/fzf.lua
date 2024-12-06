@@ -1,4 +1,4 @@
-if LazyVim.has("telescope.nvim") then
+if true then
   return {}
 end
 
