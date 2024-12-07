@@ -11,7 +11,8 @@ vim.keymap.del({ "n", "v", "i" }, "<M-j>")
 vim.keymap.del({ "n", "v", "i" }, "<M-k>")
 -- Remove this terminal mapping, because we are now using wezterm as a bottom pane terminal
 vim.keymap.del("n", "<C-/>")
--- Move lines
+-- Move lines, the default is <A-j> (lowercased),
+-- we are already using this for window resize, so we will change it to <A-J> (uppercase)
 map("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
 map("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
 map("i", "<A-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move line down" })
