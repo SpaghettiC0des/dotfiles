@@ -1,24 +1,25 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
-local map = vim.keymap.set
+local keymapSet = vim.keymap.set
+local keymapDel = vim.keymap.del
 local esc_save = "<esc>"
-map("i", "jk", esc_save, { noremap = true, silent = true })
-map("i", "kj", esc_save, { noremap = true, silent = true })
+keymapSet("i", "jk", esc_save, { noremap = true, silent = true })
+keymapSet("i", "kj", esc_save, { noremap = true, silent = true })
 
 -- Remove default move Lines
-vim.keymap.del({ "n", "v", "i" }, "<M-j>")
-vim.keymap.del({ "n", "v", "i" }, "<M-k>")
+keymapDel({ "n", "v", "i" }, "<M-j>")
+keymapDel({ "n", "v", "i" }, "<M-k>")
 -- Remove this terminal mapping, because we are now using wezterm as a bottom pane terminal
-vim.keymap.del("n", "<C-/>")
+keymapDel("n", "<C-/>")
 -- Move lines, the default is <A-j> (lowercased),
 -- we are already using this for window resize, so we will change it to <A-J> (uppercase)
-map("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
-map("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
-map("i", "<A-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move line down" })
-map("i", "<A-K>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move line up" })
-map("v", "<A-J>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
-map("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
+keymapSet("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
+keymapSet("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+keymapSet("i", "<A-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move line down" })
+keymapSet("i", "<A-K>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move line up" })
+keymapSet("v", "<A-J>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
+keymapSet("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 --
 -- map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 -- map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
@@ -38,33 +39,32 @@ map("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 --   "<cmd>lua require('gitsigns').toggle_current_line_blame()<cr>",
 --   { desc = "Toggle current line blame", silent = true, noremap = true }
 -- )
-local set_keymap = vim.api.nvim_set_keymap
 -- package-info keymaps
-set_keymap(
+keymapSet(
   "n",
   "<leader>cpt",
   "<cmd>lua require('package-info').toggle({ force = true})<cr>",
   { silent = true, noremap = true, desc = "Toggle" }
 )
-set_keymap(
+keymapSet(
   "n",
   "<leader>cpd",
   "<cmd>lua require('package-info').delete()<cr>",
   { silent = true, noremap = true, desc = "Delete package" }
 )
-set_keymap(
+keymapSet(
   "n",
   "<leader>cpu",
   "<cmd>lua require('package-info').update()<cr>",
   { silent = true, noremap = true, desc = "Update package" }
 )
-set_keymap(
+keymapSet(
   "n",
   "<leader>cpi",
   "<cmd>lua require('package-info').install()<cr>",
   { silent = true, noremap = true, desc = "Install package" }
 )
-set_keymap(
+keymapSet(
   "n",
   "<leader>cpc",
   "<cmd>lua require('package-info').change_version()<cr>",
@@ -72,16 +72,16 @@ set_keymap(
 )
 
 -- smart-splits keymaps
-map("n", "<A-h>", require("smart-splits").resize_left, { desc = "Resize left" })
-map("n", "<A-j>", require("smart-splits").resize_down, { desc = "Resize down" })
-map("n", "<A-k>", require("smart-splits").resize_up, { desc = "Resize up" })
-map("n", "<A-l>", require("smart-splits").resize_right, { desc = "Resize right" })
+keymapSet("n", "<A-h>", require("smart-splits").resize_left, { desc = "Resize left" })
+keymapSet("n", "<A-j>", require("smart-splits").resize_down, { desc = "Resize down" })
+keymapSet("n", "<A-k>", require("smart-splits").resize_up, { desc = "Resize up" })
+keymapSet("n", "<A-l>", require("smart-splits").resize_right, { desc = "Resize right" })
 -- moving between splits
-map("n", "<C-h>", require("smart-splits").move_cursor_left, { desc = "Move cursor left" })
-map("n", "<C-j>", require("smart-splits").move_cursor_down, { desc = "Move cursor down" })
-map("n", "<C-k>", require("smart-splits").move_cursor_up, { desc = "Move cursor up" })
-map("n", "<C-l>", require("smart-splits").move_cursor_right, { desc = "Move cursor right" })
-map("n", "<C-\\>", require("smart-splits").move_cursor_previous, { desc = "Move cursor to previous" })
+keymapSet("n", "<C-h>", require("smart-splits").move_cursor_left, { desc = "Move cursor left" })
+keymapSet("n", "<C-j>", require("smart-splits").move_cursor_down, { desc = "Move cursor down" })
+keymapSet("n", "<C-k>", require("smart-splits").move_cursor_up, { desc = "Move cursor up" })
+keymapSet("n", "<C-l>", require("smart-splits").move_cursor_right, { desc = "Move cursor right" })
+keymapSet("n", "<C-\\>", require("smart-splits").move_cursor_previous, { desc = "Move cursor to previous" })
 -- swapping buffers between windows
 -- map("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
 -- map("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
