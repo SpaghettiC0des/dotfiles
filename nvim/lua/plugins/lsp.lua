@@ -1,24 +1,24 @@
 ---@diagnostic disable: unused-local
 return {
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        ["javascript"] = { "dprint", "eslint", stop_after_first = true },
-        ["javascriptreact"] = { "dprint", "eslint", stop_after_first = true },
-        ["typescript"] = { "dprint", "eslint", stop_after_first = true },
-        ["typescriptreact"] = { "dprint", "eslint", stop_after_first = true },
-      },
-      formatters = {
-        dprint = {
-          condition = function(_, ctx)
-            return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
-          end,
-        },
-      },
-    },
-  },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   optional = true,
+  --   opts = {
+  --     formatters_by_ft = {
+  --       ["javascript"] = { "dprint", "biome", "eslint", stop_after_first = true },
+  --       ["javascriptreact"] = { "dprint", "biome", "eslint", stop_after_first = true },
+  --       ["typescript"] = { "dprint", "biome", "eslint", stop_after_first = true },
+  --       ["typescriptreact"] = { "dprint", "biome", "eslint", stop_after_first = true },
+  --     },
+  --     formatters = {
+  --       dprint = {
+  --         condition = function(_, ctx)
+  --           return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
+  --         end,
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "mfussenegger/nvim-lint",
     opts = {
