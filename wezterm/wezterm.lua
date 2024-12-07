@@ -57,7 +57,6 @@ end)
 wezterm.on("restore_session", function(window)
 	session_manager.restore_state(window)
 end)
-config.default_cwd = "~/codes"
 -- This is where you actually apply your config choices
 wezterm.on("gui-startup", function(cmd)
 	local editor_tab, editor_pane, window = mux.spawn_window(cmd or {})
@@ -77,10 +76,10 @@ wezterm.on("gui-startup", function(cmd)
 	editor_tab:panes()[1]:activate()
 end)
 
-config.max_fps = 120
+config.max_fps = 240
 config.window_background_opacity = 0.5
 config.macos_window_background_blur = 80
-config.font_size = 22.0
+config.font_size = 18.0
 -- config.font = wezterm.font("Operator Mono Lig")
 config.font = wezterm.font("BlexMono Nerd Font")
 -- config.font = wezterm.font("Ligalex Mono")
@@ -104,13 +103,13 @@ config.window_padding = {
 -- config.color_scheme = 'Atom'
 -- config.color_scheme = "Ayu Dark (Gogh)"
 -- config.color_scheme = 'Ayu Mirage'
--- config.color_scheme = "Night Owl (Gogh)"
+config.color_scheme = "Night Owl (Gogh)"
 -- config.color_scheme = "Neon Night (Gogh)"
 -- config.color_scheme = "nightfox"
 -- config.color_scheme = 'Purple People Eater (Gogh)'
 -- config.color_scheme = "purplepeter"
-config.color_scheme = "Tokyo Night (Gogh)"
-config.launch_menu = {}
+-- config.color_scheme = "Tokyo Night (Gogh)"
+-- config.launch_menu = {}
 config.leader = { key = "l", mods = "CMD", timeout_milliseconds = 1000 }
 
 config.keys = {
@@ -192,9 +191,43 @@ config.keys = {
 				panes[2].pane:activate()
 			end
 		end),
+	}, -- Attach to muxer
+	{
+		key = "a",
+		mods = "LEADER",
+		action = act.AttachDomain("unix"),
+	},
+
+	-- Detach from muxer
+	{
+		key = "d",
+		mods = "LEADER",
+		action = act.DetachDomain({ DomainName = "unix" }),
+	},
+	-- Rename current session; analagous to command in tmux
+	{
+		key = "$",
+		mods = "LEADER|SHIFT",
+		action = act.PromptInputLine({
+			description = "Enter new name for session",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					mux.rename_workspace(window:mux_window():get_workspace(), line)
+				end
+			end),
+		}),
+	},
+	{
+		key = "w",
+		mods = "LEADER",
+		action = act.ShowLauncherArgs({ flags = "WORKSPACES" }),
 	},
 }
-
+config.unix_domains = {
+	{
+		name = "unix",
+	},
+}
 -- if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 -- 	config.front_end = "Software" -- OpenGL doesn't work quite well with RDP.
 -- 	config.term = "" -- Set to empty so FZF works on windows
@@ -219,4 +252,6 @@ config.keys = {
 -- 	table.insert(config.launch_menu, { label = "fish", args = { "fish", "-l" } })
 -- end
 -- and finally, return the configuration to wezterm
+
+config.default_cwd = wezterm.home_dir .. "codes"
 return config
