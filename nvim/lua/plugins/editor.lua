@@ -110,7 +110,7 @@ return {
     opts = { headerMaxWidth = 80 },
     cmd = "GrugFar",
     config = function()
-      require("grug-far").setup({ engine = "astgrep" })
+      -- require("grug-far").setup({ engine = "astgrep" })
     end,
   },
 }
