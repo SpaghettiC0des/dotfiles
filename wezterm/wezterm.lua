@@ -1,6 +1,7 @@
-local session_manager = require("wezterm-session-manager/session-manager")
--- Pull in the wezterm API
 local wezterm = require("wezterm")
+local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+-- Pull in the wezterm API
+local func = require("./func")
 local mux = wezterm.mux
 local act = wezterm.action
 -- This table will hold the configuration.
@@ -48,33 +49,24 @@ end
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
-wezterm.on("save_session", function(window)
-	session_manager.save_state(window)
-end)
-wezterm.on("load_session", function(window)
-	session_manager.load_state(window)
-end)
-wezterm.on("restore_session", function(window)
-	session_manager.restore_state(window)
-end)
 -- This is where you actually apply your config choices
-wezterm.on("gui-startup", function(cmd)
-	local editor_tab, editor_pane, window = mux.spawn_window(cmd or {})
-	-- local tab, pane, window = mux.spawn_window(cmd or {})
-	window:gui_window():maximize()
-	editor_tab:set_title("editor")
-	-- this will replace the Lazyvim terminal mapped to <C-/>
-	editor_pane:split({
-		size = 0.3,
-		direction = "Bottom",
-	})
-	---@diagnostic disable-next-line: redefined-local
-	local tab, pane, window = window:spawn_tab({})
-	tab:set_title("terminal")
-	pane:split({ size = 0.5, direction = "Bottom" })
-	editor_tab:activate()
-	editor_tab:panes()[1]:activate()
-end)
+-- wezterm.on("gui-startup", function(cmd)
+-- local editor_tab, editor_pane, window = mux.spawn_window(cmd or {})
+-- -- local tab, pane, window = mux.spawn_window(cmd or {})
+-- window:gui_window():maximize()
+-- editor_tab:set_title("editor")
+-- -- this will replace the Lazyvim terminal mapped to <C-/>
+-- editor_pane:split({
+-- 	size = 0.3,
+-- 	direction = "Bottom",
+-- })
+-- ---@diagnostic disable-next-line: redefined-local
+-- local tab, pane, window = window:spawn_tab({})
+-- tab:set_title("terminal")
+-- pane:split({ size = 0.5, direction = "Bottom" })
+-- editor_tab:activate()
+-- editor_tab:panes()[1]:activate()
+-- end)
 
 config.max_fps = 240
 config.window_background_opacity = 0.5
@@ -207,7 +199,7 @@ config.keys = {
 	-- Rename current session; analagous to command in tmux
 	{
 		key = "$",
-		mods = "LEADER|SHIFT",
+		mods = "LEADER",
 		action = act.PromptInputLine({
 			description = "Enter new name for session",
 			action = wezterm.action_callback(function(window, pane, line)
@@ -221,6 +213,80 @@ config.keys = {
 		key = "w",
 		mods = "LEADER",
 		action = act.ShowLauncherArgs({ flags = "WORKSPACES" }),
+	},
+	{
+		key = "k",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(window)
+			local w = window:active_workspace()
+			func.kill_workspace(w)
+		end),
+	},
+
+	{
+		key = "w",
+		mods = "ALT",
+		action = wezterm.action_callback(function(win, pane)
+			resurrect.save_state(resurrect.workspace_state.get_workspace_state())
+		end),
+	},
+	{
+		key = "W",
+		mods = "ALT",
+		action = resurrect.window_state.save_window_action(),
+	},
+	{
+		key = "T",
+		mods = "ALT",
+		action = resurrect.tab_state.save_tab_action(),
+	},
+	{
+		key = "s",
+		mods = "ALT",
+		action = wezterm.action_callback(function(win, pane)
+			resurrect.save_state(resurrect.workspace_state.get_workspace_state())
+			resurrect.window_state.save_window_action()
+		end),
+	},
+	{
+		key = "r",
+		mods = "ALT",
+		action = wezterm.action_callback(function(win, pane)
+			resurrect.fuzzy_load(win, pane, function(id, label)
+				local type = string.match(id, "^([^/]+)") -- match before '/'
+				id = string.match(id, "([^/]+)$") -- match after '/'
+				id = string.match(id, "(.+)%..+$") -- remove file extention
+				local opts = {
+					relative = true,
+					restore_text = true,
+					on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+				}
+				if type == "workspace" then
+					local state = resurrect.load_state(id, "workspace")
+					resurrect.workspace_state.restore_workspace(state, opts)
+				elseif type == "window" then
+					local state = resurrect.load_state(id, "window")
+					resurrect.window_state.restore_window(pane:window(), state, opts)
+				elseif type == "tab" then
+					local state = resurrect.load_state(id, "tab")
+					resurrect.tab_state.restore_tab(pane:tab(), state, opts)
+				end
+			end)
+		end),
+	},
+	{
+		key = "d",
+		mods = "ALT",
+		action = wezterm.action_callback(function(win, pane)
+			resurrect.fuzzy_load(win, pane, function(id)
+				resurrect.delete_state(id)
+			end, {
+				title = "Delete State",
+				description = "Select State to Delete and press Enter = accept, Esc = cancel, / = filter",
+				fuzzy_description = "Search State to Delete: ",
+				is_fuzzy = true,
+			})
+		end),
 	},
 }
 config.unix_domains = {
