@@ -30,12 +30,12 @@ return {
   --     vim.fn["firenvim#install"](0)
   --   end,
   -- },
-  {
-    "olrtg/nvim-emmet",
-    config = function()
-      vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
-    end,
-  },
+  -- {
+  --   "olrtg/nvim-emmet",
+  --   config = function()
+  --     vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
+  --   end,
+  -- },
   {
     "mrjones2014/smart-splits.nvim",
     lazy = false,
@@ -104,5 +104,13 @@ return {
         animation = require("mini.indentscope").gen_animation.none(),
       },
     },
+  },
+  {
+    "MagicDuck/grug-far.nvim",
+    opts = { headerMaxWidth = 80 },
+    cmd = "GrugFar",
+    config = function()
+      require("grug-far").setup({ engine = "astgrep" })
+    end,
   },
 }
