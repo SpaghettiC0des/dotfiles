@@ -84,8 +84,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "night-owl",
-      -- colorscheme = "tokyonight-night",
+      -- colorscheme = "night-owl",
+      colorscheme = "tokyonight-night",
       -- colorscheme = "catppuccin-mocha",
       -- colorscheme = "github_dark_default",
     },
