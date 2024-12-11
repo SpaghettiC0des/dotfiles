@@ -70,7 +70,7 @@ end
 
 config.max_fps = 240
 config.background = {
-	{ source = { File = wezterm.config_dir .. "/wezterm-bg.jpg" }, opacity = 0.3 },
+	{ source = { File = wezterm.config_dir .. "/wezterm-bg.jpg" }, opacity = 0.4 },
 }
 config.window_background_opacity = 0.5
 config.macos_window_background_blur = 80
