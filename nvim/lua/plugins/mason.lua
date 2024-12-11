@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 return {
   {
     -- Ensure C/C++ debugger is installed
