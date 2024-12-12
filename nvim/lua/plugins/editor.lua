@@ -52,13 +52,13 @@ return {
       -- Recipe can be any of 'default', 'minimalist', 'duo', and 'ripple'
       -- Set animate = true to enable animations on any recipe.
       -- See the docs for other config options.
-      recipe = { "default", { animate = "minimalist" } },
+      recipe = { "minimalist", { animate = true } },
       ncmode = "buffers", -- use 'windows' to fade inactive windows
-      fadelevel = 0.4, -- any value between 0 and 1. 0 is hidden and 1 is opaque.
+      fadelevel = 0.5, -- any value between 0 and 1. 0 is hidden and 1 is opaque.
       tint = {
-        -- bg = {rgb={0,0,0}, intensity=0.3}, -- adds 30% black to background
-        -- fg = {rgb={0,0,255}, intensity=0.3}, -- adds 30% blue to foreground
-        -- fg = {rgb={120,120,120}, intensity=1}, -- all text will be gray
+        bg = { rgb = { 0, 0, 0 }, intensity = 0.4 }, -- adds 30% black to background
+        -- fg = { rgb = { 0, 255, 0 }, intensity = 0.3 }, -- adds 30% blue to foreground
+        -- fg = { rgb = { 120, 120, 120 }, intensity = 1 }, -- all text will be gray
         -- sp = {rgb={255,0,0}, intensity=0.5}, -- adds 50% red to special characters
         -- you can also use functions for tint or any value part in the tint object
         -- to create window-specific configurations
@@ -74,7 +74,7 @@ return {
       -- prevent a window or buffer from being styled. You
       blocklist = {
         default = {
-          buf_opts = { buftype = { "prompt", "terminal" } },
+          buf_opts = { buftype = { "prompt", "terminal", "neo-tree" } },
           win_config = { relative = true },
           -- buf_name = {'name1','name2', name3'},
           -- buf_vars = { variable = {'match1', 'match2'} },
