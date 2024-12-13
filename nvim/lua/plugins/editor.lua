@@ -52,7 +52,7 @@ return {
       -- Recipe can be any of 'default', 'minimalist', 'duo', and 'ripple'
       -- Set animate = true to enable animations on any recipe.
       -- See the docs for other config options.
-      recipe = { "minimalist", { animate = true } },
+      recipe = { "minimalist", { animate = false } },
       ncmode = "buffers", -- use 'windows' to fade inactive windows
       fadelevel = 0.5, -- any value between 0 and 1. 0 is hidden and 1 is opaque.
       tint = {
@@ -191,12 +191,12 @@ return {
       },
     },
   },
-  {
-    "MagicDuck/grug-far.nvim",
-    opts = { headerMaxWidth = 80 },
-    cmd = "GrugFar",
-    config = function()
-      -- require("grug-far").setup({ engine = "astgrep" })
-    end,
-  },
+  -- {
+  --   "MagicDuck/grug-far.nvim",
+  --   opts = { headerMaxWidth = 80 },
+  --   cmd = "GrugFar",
+  --   config = function()
+  --     -- require("grug-far").setup({ engine = "astgrep" })
+  --   end,
+  -- },
 }

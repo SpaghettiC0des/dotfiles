@@ -4,7 +4,7 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-      bigfile = { enabled = true },
+      scroll = { enabled = false, animate = { duration = { step = 15, total = 50 } } },
       dashboard = {
         preset = {
           header = [[

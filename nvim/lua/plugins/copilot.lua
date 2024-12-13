@@ -5,6 +5,9 @@ return {
     cmd = "CopilotChat",
     opts = {
       -- model = "claude-3.5-sonnet",
+      mappings = {
+        reset = { normal = "<C-r>", insert = "<C-r>" },
+      },
     },
     config = function(_, opts)
       local chat = require("CopilotChat")

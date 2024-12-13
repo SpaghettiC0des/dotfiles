@@ -49,30 +49,30 @@ return {
         }
 
         -- Telescope configs
-        hl.TelescopeNormal = { bg = colors.deep_dark, fg = c.fg }
-        hl.TelescopeBorder = { bg = colors.deep_dark, fg = colors.border }
-        hl.TelescopePromptNormal = { bg = colors.deep_dark, fg = colors.text.primary }
-        hl.TelescopePromptBorder = { bg = colors.deep_dark, fg = colors.accent.blue }
-        hl.TelescopePromptTitle = { bg = colors.accent.blue, fg = colors.text.dark, bold = true }
-        hl.TelescopePreviewTitle = { bg = colors.accent.purple, fg = colors.text.dark, bold = true }
-        hl.TelescopePreviewBorder = { bg = colors.deep_dark, fg = colors.border }
-        hl.TelescopeResultsTitle = { bg = colors.accent.green, fg = colors.text.dark, bold = true }
-        hl.TelescopeResultsBorder = { bg = colors.deep_dark, fg = colors.border }
-        hl.TelescopeSelection = { bg = colors.border, fg = colors.text.primary }
-
-        -- LazyGit customizations
-        hl.LazyGitNormal = { bg = colors.deep_dark, fg = colors.text.primary }
-        hl.LazyGitBorder = { fg = colors.border }
-        hl.LazyGitBranch = { fg = colors.accent.blue, bold = true }
-        hl.LazyGitFileName = { fg = colors.accent.purple }
-        hl.LazyGitCommitHash = { fg = colors.accent.green }
-        hl.LazyGitCommitMessage = { fg = colors.text.primary }
-        hl.LazyGitStatusAdded = { fg = colors.accent.green }
-        hl.LazyGitStatusModified = { fg = colors.accent.blue }
-        hl.LazyGitStatusDeleted = { fg = colors.accent.red }
-        hl.LazyGitStatusUntracked = { fg = colors.accent.purple }
-        hl.LazyGitInactiveBorder = { fg = colors.border }
-        hl.LazyGitHeader = { bg = colors.border, fg = colors.text.primary, bold = true }
+        -- hl.TelescopeNormal = { bg = colors.deep_dark, fg = c.fg }
+        -- hl.TelescopeBorder = { bg = colors.deep_dark, fg = colors.border }
+        -- hl.TelescopePromptNormal = { bg = colors.deep_dark, fg = colors.text.primary }
+        -- hl.TelescopePromptBorder = { bg = colors.deep_dark, fg = colors.accent.blue }
+        -- hl.TelescopePromptTitle = { bg = colors.accent.blue, fg = colors.text.dark, bold = true }
+        -- hl.TelescopePreviewTitle = { bg = colors.accent.purple, fg = colors.text.dark, bold = true }
+        -- hl.TelescopePreviewBorder = { bg = colors.deep_dark, fg = colors.border }
+        -- hl.TelescopeResultsTitle = { bg = colors.accent.green, fg = colors.text.dark, bold = true }
+        -- hl.TelescopeResultsBorder = { bg = colors.deep_dark, fg = colors.border }
+        -- hl.TelescopeSelection = { bg = colors.border, fg = colors.text.primary }
+        --
+        -- -- LazyGit customizations
+        -- hl.LazyGitNormal = { bg = colors.deep_dark, fg = colors.text.primary }
+        -- hl.LazyGitBorder = { fg = colors.border }
+        -- hl.LazyGitBranch = { fg = colors.accent.blue, bold = true }
+        -- hl.LazyGitFileName = { fg = colors.accent.purple }
+        -- hl.LazyGitCommitHash = { fg = colors.accent.green }
+        -- hl.LazyGitCommitMessage = { fg = colors.text.primary }
+        -- hl.LazyGitStatusAdded = { fg = colors.accent.green }
+        -- hl.LazyGitStatusModified = { fg = colors.accent.blue }
+        -- hl.LazyGitStatusDeleted = { fg = colors.accent.red }
+        -- hl.LazyGitStatusUntracked = { fg = colors.accent.purple }
+        -- hl.LazyGitInactiveBorder = { fg = colors.border }
+        -- hl.LazyGitHeader = { bg = colors.border, fg = colors.text.primary, bold = true }
       end,
       on_colors = function(colors)
         -- colors.bg = "#090810"
