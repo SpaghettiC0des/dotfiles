@@ -42,6 +42,12 @@ keymapSet("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 -- package-info keymaps
 keymapSet(
   "n",
+  "<leader>sA",
+  "<cmd>lua require('grug-far').open({ engine = 'astgrep'})<cr>",
+  { silent = true, noremap = true, desc = "Search and Replace (AST-Grep)" }
+)
+keymapSet(
+  "n",
   "<leader>cpt",
   "<cmd>lua require('package-info').toggle({ force = true})<cr>",
   { silent = true, noremap = true, desc = "Toggle" }
