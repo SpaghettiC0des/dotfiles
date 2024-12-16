@@ -191,4 +191,7 @@ return {
       },
     },
   },
+  {
+    "sindrets/winshift.nvim",
+  },
 }
