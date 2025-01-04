@@ -1,3 +1,4 @@
+
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by interactive shells
@@ -150,6 +151,8 @@ alias ...........="cd ../../../../../../../../../.."
 alias ............="cd ../../../../../../../../../../.."
 alias .............="cd ../../../../../../../../../../../.."
 
+export EDITOR="nvim"
+# export PATH="$PATH":"$HOME/.pub-cache/bin"
 export CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 export PATH=$PATH:$HOME/codes/flutter-sdk/bin
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
@@ -181,8 +184,6 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 eval "$(rbenv init - zsh)"
 
 # pnpm
@@ -211,3 +212,21 @@ autoload_nvmrc() {
 autoload -U add-zsh-hook
 add-zsh-hook chpwd autoload_nvmrc
 autoload_nvmrc
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/karlmarxlopez/.dart-cli-completion/zsh-config.zsh ]] && . /Users/karlmarxlopez/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+export FVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.fvm" || printf %s "${XDG_CONFIG_HOME}/fvm")"
+[ -s "$FVM_DIR/fvm.sh" ] && \. "$FVM_DIR/fvm.sh" # This loads fvm
+[ -s "$FVM_DIR/bash_completion" ] && \. "$FVM_DIR/bash_completion"  # This loads fvm bash_completion
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
