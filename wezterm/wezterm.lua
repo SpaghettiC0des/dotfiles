@@ -68,7 +68,7 @@ end
 -- editor_tab:panes()[1]:activate()
 -- end)
 
-config.max_fps = 240
+config.max_fps = 120
 config.background = {
 	{ source = { File = wezterm.config_dir .. "/wezterm-bg.jpg" }, opacity = 0.4 },
 }
@@ -99,12 +99,12 @@ config.window_padding = {
 -- config.color_scheme = 'Atom'
 -- config.color_scheme = "Ayu Dark (Gogh)"
 -- config.color_scheme = 'Ayu Mirage'
-config.color_scheme = "Night Owl (Gogh)"
+-- config.color_scheme = "Night Owl (Gogh)"
 -- config.color_scheme = "Neon Night (Gogh)"
 -- config.color_scheme = "nightfox"
 -- config.color_scheme = 'Purple People Eater (Gogh)'
 -- config.color_scheme = "purplepeter"
--- config.color_scheme = "Tokyo Night (Gogh)"
+config.color_scheme = "Tokyo Night (Gogh)"
 -- config.launch_menu = {}
 config.leader = { key = "l", mods = "CMD", timeout_milliseconds = 1000 }
 
