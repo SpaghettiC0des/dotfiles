@@ -4,6 +4,15 @@ return {
     "oxfist/night-owl.nvim",
   },
   -- {
+  --   "0xstepit/flow.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   -- tag = "vX.0.0",
+  --   opts = {
+  --     -- Your configuration options here.
+  --   },
+  -- },
+  -- {
   --   "projekt0n/github-nvim-theme",
   --   lazy = false,
   --   priority = 1000,

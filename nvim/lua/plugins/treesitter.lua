@@ -1,12 +1,10 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      indent = { enable = true, disable = { "dart" } },
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    indent = { enable = true, disable = { "dart" } },
 
-      ensure_installed = {
-        "dart",
-      },
+    ensure_installed = {
+      "dart",
     },
   },
 }

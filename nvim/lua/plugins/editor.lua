@@ -111,6 +111,15 @@ return {
     },
   },
   -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     messages = {
+  --       enabled = false,
+  --     },
+  --   },
+  -- },
+  -- {
   -- "s1n7ax/nvim-window-picker",
   -- name = "window-picker",
   -- event = "VeryLazy",
