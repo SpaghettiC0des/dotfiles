@@ -154,6 +154,7 @@ alias .............="cd ../../../../../../../../../../../.."
 export EDITOR="nvim"
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 export CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+export CONFIG_DIR="$HOME/.config/lazygit"
 export PATH=$PATH:$HOME/codes/flutter-sdk/bin
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export ANDROID_HOME=$ANDROID_SDK_ROOT
@@ -227,6 +228,13 @@ export FVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.fvm" || pr
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
+# ## https://github.com/kdheepak/lazygit.nvim/issues/22#issuecomment-2206274882
+# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+#     export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+#     export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+# else
+#     export VISUAL="nvim"
+#     export EDITOR="nvim"
+# fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
