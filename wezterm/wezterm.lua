@@ -67,7 +67,7 @@ end
 -- editor_tab:activate()
 -- editor_tab:panes()[1]:activate()
 -- end)
-
+config.native_macos_fullscreen_mode = true
 config.max_fps = 120
 config.background = {
 	{ source = { File = wezterm.config_dir .. "/wezterm-bg.jpg" }, opacity = 0.4 },
@@ -157,7 +157,7 @@ config.keys = {
 	{ key = "q", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 
-	{ key = "n", mods = "SHIFT|CTRL", action = "ToggleFullScreen" },
+	{ key = "n", mods = "LEADER", action = "ToggleFullScreen" },
 	{ key = "v", mods = "SHIFT|CTRL", action = wezterm.action.PasteFrom("Clipboard") },
 	{ key = "c", mods = "SHIFT|CTRL", action = wezterm.action.CopyTo("Clipboard") },
 
