@@ -30,11 +30,6 @@ return {
       })
     end,
   },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = { ensure_installed = { "dart" } },
-  },
   -- { "nvimtools/none-ls.nvim",
   --   optional = true,
   --   opts = function(_, opts)
