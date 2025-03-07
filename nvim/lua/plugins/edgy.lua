@@ -69,6 +69,10 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     optional = true,
     opts = function(_, opts)
+      table.insert(opts.filesystem, {
+        find_command = "fd",
+        find_args = { "--exclude", ".git", "--exclude", "node_modules" },
+      })
       opts.open_files_do_not_replace_types = opts.open_files_do_not_replace_types
         or { "terminal", "Trouble", "qf", "Outline", "trouble" }
       table.insert(opts.open_files_do_not_replace_types, "edgy")
