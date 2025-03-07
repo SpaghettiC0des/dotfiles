@@ -155,16 +155,25 @@ export EDITOR="nvim"
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 export CHROME_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 # export CONFIG_DIR="$HOME/.config/lazygit"
-export PATH=$PATH:$HOME/codes/flutter-sdk/bin
-export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-export ANDROID_HOME=$ANDROID_SDK_ROOT
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+if [ -d "$HOME/codes/flutter-sdk/bin" ]; then
+  export PATH="$PATH:$HOME/codes/flutter-sdk/bin"
+fi
+
+if [ -d "$HOME/Library/Android/sdk" ]; then
+  export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+  export ANDROID_HOME="$ANDROID_SDK_ROOT"
+  export PATH="$PATH:$ANDROID_SDK_ROOT/emulator"
+  export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
+fi
 export PATH=$PATH:$HOME/Library/Python/3.8/bin
 export PATH=$PATH:$HOME/Library/Python/3.11/bin
 export PATH=$PATH:$HOME/.platformio/penv/bin
 export PATH=$PATH:~/.local/bin
 export SDKROOT=$(xcrun -sdk macosx --show-sdk-path)
+if [ -d "$HOME/.dotnet" ]; then
+  export DOTNET_ROOT="$HOME/.dotnet"
+  export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
@@ -172,7 +181,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 [ -s "/Users/karlmarxlopez/.bun/_bun" ] && source "/Users/karlmarxlopez/.bun/_bun"
 
 # Bun
-export BUN_INSTALL="/Users/karlmarxlopez/.bun"
+export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
@@ -188,7 +197,7 @@ export LC_ALL=en_US.UTF-8
 eval "$(rbenv init - zsh)"
 
 # pnpm
-export PNPM_HOME="/Users/karlmarxlopez/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 # The next line updates PATH for the Google Cloud SDK.
