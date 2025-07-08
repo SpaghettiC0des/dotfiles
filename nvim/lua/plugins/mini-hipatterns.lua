@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 local MiniHipatterns = require("mini.hipatterns")
 local M = require("utils.utils")
 

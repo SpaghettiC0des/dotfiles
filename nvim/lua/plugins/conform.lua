@@ -1,6 +1,3 @@
-if true then
-  return {}
-end
 local function biome_lsp_or_prettier(bufnr)
   local has_biome_lsp = vim.lsp.get_clients({
     bufnr = bufnr,
@@ -38,7 +35,7 @@ return {
         biome = { require_cwd = true },
         prettier = {
           condition = function(_, ctx)
-            return M.has_parser(ctx) and (vim.g.lazyvim_prettier_needs_config ~= true or M.has_config(ctx))
+            return require("conform.util").has_parser(ctx) and (vim.g.lazyvim_prettier_needs_config ~= true or require("conform.util").has_config(ctx))
           end,
         },
       },
