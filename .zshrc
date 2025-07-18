@@ -1,4 +1,5 @@
-
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by interactive shells
@@ -131,6 +132,7 @@ unset key
 
 alias ssh:github="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/github"
 alias ssh:fulcrum="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/fulcrum"
+alias ssh:icc="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/icc"
 alias firefox:default="/Applications/Firefox.app/Contents/MacOS/firefox -P 'default'"
 alias firefox:fulcrum="/Applications/Firefox.app/Contents/MacOS/firefox -P 'Fulcrum'"
 alias firefox:="/Applications/Firefox.app/Contents/MacOS/firefox -P 'AHP'"
@@ -247,3 +249,8 @@ fi
 # fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
+export PATH="$HOME/.deno/bin:$PATH"

@@ -77,17 +77,21 @@ keymapSet(
   { silent = true, noremap = true, desc = "Change package version" }
 )
 
--- smart-splits keymaps
-keymapSet("n", "<A-h>", require("smart-splits").resize_left, { desc = "Resize left" })
-keymapSet("n", "<A-j>", require("smart-splits").resize_down, { desc = "Resize down" })
-keymapSet("n", "<A-k>", require("smart-splits").resize_up, { desc = "Resize up" })
-keymapSet("n", "<A-l>", require("smart-splits").resize_right, { desc = "Resize right" })
--- moving between splits
-keymapSet("n", "<C-h>", require("smart-splits").move_cursor_left, { desc = "Move cursor left" })
-keymapSet("n", "<C-j>", require("smart-splits").move_cursor_down, { desc = "Move cursor down" })
-keymapSet("n", "<C-k>", require("smart-splits").move_cursor_up, { desc = "Move cursor up" })
-keymapSet("n", "<C-l>", require("smart-splits").move_cursor_right, { desc = "Move cursor right" })
-keymapSet("n", "<C-\\>", require("smart-splits").move_cursor_previous, { desc = "Move cursor to previous" })
+-- smart-splits keymaps (wrapped in pcall to avoid errors if not loaded)
+local smart_splits_ok, smart_splits = pcall(require, "smart-splits")
+if smart_splits_ok then
+  keymapSet("n", "<A-h>", smart_splits.resize_left, { desc = "Resize left" })
+  keymapSet("n", "<A-j>", smart_splits.resize_down, { desc = "Resize down" })
+  keymapSet("n", "<A-k>", smart_splits.resize_up, { desc = "Resize up" })
+  keymapSet("n", "<A-l>", smart_splits.resize_right, { desc = "Resize right" })
+  
+  -- moving between splits
+  keymapSet("n", "<C-h>", smart_splits.move_cursor_left, { desc = "Move cursor left" })
+  keymapSet("n", "<C-j>", smart_splits.move_cursor_down, { desc = "Move cursor down" })
+  keymapSet("n", "<C-k>", smart_splits.move_cursor_up, { desc = "Move cursor up" })
+  keymapSet("n", "<C-l>", smart_splits.move_cursor_right, { desc = "Move cursor right" })
+  keymapSet("n", "<C-\\>", smart_splits.move_cursor_previous, { desc = "Move cursor to previous" })
+end
 -- swapping buffers between windows
 -- map("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
 -- map("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
