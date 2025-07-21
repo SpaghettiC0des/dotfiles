@@ -1,5 +1,9 @@
 return {
   {
+    "ibhagwan/fzf-lua",
+    enabled = false,
+  },
+  {
     "mrjones2014/smart-splits.nvim",
     lazy = true,
     keys = {
