@@ -3,4 +3,4 @@
 
 -- LazyVim Recipe: ESLint for fix on save + Prettier for formatting
 vim.g.lazyvim_eslint_auto_format = true
--- vim.g.lazyvim_prettier_needs_config = true  -- Not needed with custom config
+vim.g.lazyvim_prettier_needs_config = true -- Not needed with custom config
