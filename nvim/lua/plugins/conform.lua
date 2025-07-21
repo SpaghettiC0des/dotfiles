@@ -1,54 +1,64 @@
-if true then
-  return {}
-end
-local function biome_lsp_or_prettier(bufnr)
-  local has_biome_lsp = vim.lsp.get_clients({
-    bufnr = bufnr,
-    name = "biome",
-  })[1]
-  if has_biome_lsp then
-    return {}
-  end
-  local has_prettier = vim.fs.find({
-    -- https://prettier.io/docs/en/configuration.html
-    ".prettierrc",
-    ".prettierrc.json",
-    ".prettierrc.yml",
-    ".prettierrc.yaml",
-    ".prettierrc.json5",
-    ".prettierrc.js",
-    ".prettierrc.cjs",
-    ".prettierrc.toml",
-    "prettier.config.js",
-    "prettier.config.cjs",
-  }, { upward = true })[1]
-
-  if has_prettier then
-    return { "prettier" }
-  end
-  return { "biome" }
-end
-
+-- Custom setup: ESLint for fix on save + Prettier for formatting (without eslint-plugin-prettier)
 return {
+  -- Configure conform for Prettier formatting
   {
     "stevearc/conform.nvim",
-    ---@class ConformOpts
     opts = {
-      formatters = {
-        biome = { require_cwd = true },
-        prettier = {
-          condition = function(_, ctx)
-            return M.has_parser(ctx) and (vim.g.lazyvim_prettier_needs_config ~= true or M.has_config(ctx))
-          end,
+      formatters_by_ft = {
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        vue = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
+        less = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "prettier" },
+        graphql = { "prettier" },
+      },
+    },
+  },
+  -- Configure nvim-lint for ESLint linting
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        javascriptreact = { "eslint" },
+        typescriptreact = { "eslint" },
+      },
+    },
+  },
+  -- Configure ESLint LSP for auto-fixing (import/order, etc.)
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        eslint = {
+          settings = {
+            workingDirectories = { mode = "auto" },
+          },
         },
       },
-      formatters_by_ft = {
-        javascript = biome_lsp_or_prettier,
-        typescript = biome_lsp_or_prettier,
-        javascriptreact = biome_lsp_or_prettier,
-        typescriptreact = biome_lsp_or_prettier,
-        json = biome_lsp_or_prettier,
-        jsonc = biome_lsp_or_prettier,
+      setup = {
+        eslint = function()
+          -- Register ESLint formatter for auto-fixing
+          LazyVim.lsp.on_attach(function(client, bufnr)
+            if client.name == "eslint" then
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                  vim.cmd("EslintFixAll")
+                end,
+              })
+            end
+          end)
+        end,
       },
     },
   },
