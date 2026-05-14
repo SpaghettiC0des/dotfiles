@@ -2,7 +2,9 @@
 -- This file contains optimizations for UI plugins to improve Neovim performance
 -- Applied to the LazyVim-based nvim-v2 configuration
 
-if true then return {} end
+if true then
+  return {}
+end
 
 return {
   -- Optimize lualine.nvim for better performance
@@ -238,4 +240,3 @@ return {
     end,
   },
 }
-
