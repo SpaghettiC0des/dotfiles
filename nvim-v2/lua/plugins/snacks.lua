@@ -22,7 +22,21 @@ return {
         },
       },
     },
-    -- notifier = { enabled = true },
+    notifier = {
+      enabled = true,
+      style = "compact",
+      -- Filter out empty/unhelpful LSP messages
+      filter = function(notif)
+        if notif.message then
+          local msg = notif.message
+          -- Suppress "No information available" from tsgo and other LSPs
+          if msg:find("No information available") or msg:find("^%s*$") then
+            return false
+          end
+        end
+        return true
+      end,
+    },
     -- quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = false },
