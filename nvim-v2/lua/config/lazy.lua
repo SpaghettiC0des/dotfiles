@@ -21,7 +21,8 @@ require("lazy").setup({
     -- import LazyVim extras
     { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
-    { import = "lazyvim.plugins.extras.formatting.biome" },
+    { import = "lazyvim.plugins.extras.lang.typescript.oxc" },
+    { import = "lazyvim.plugins.extras.lang.sql" },
     -- import/override with your plugins
     { import = "plugins" },
   },
