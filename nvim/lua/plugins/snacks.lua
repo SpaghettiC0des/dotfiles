@@ -3,11 +3,11 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
-    -- Animation library for smooth animations
+    -- Disable animations for better performance
     animate = {
-      enabled = true,
-      duration = 20, -- ms per step
-      fps = 60,
+      enabled = false,
+      duration = 0,
+      fps = 30,
     },
     scroll = { enabled = false },
     dashboard = {
@@ -75,8 +75,8 @@ return {
       -- Auto-open when starting with directory
       auto_open = false,
       layout = "right",
-      -- Add explorer layout animations
-      animate = true,
+      -- Disable explorer animations for performance
+      animate = false,
     },
     -- Enable other snacks features
     bigfile = { enabled = true },
@@ -85,12 +85,9 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = true },
     dim = { enabled = false },
-    -- Indent guides (no animation)
+    -- Disable indent guides for better performance
     indent = {
-      enabled = true,
-      char = "▏",
-      only_scope = false,
-      only_current = false,
+      enabled = false,
     },
     -- Image support (limited in WezTerm)
     image = {

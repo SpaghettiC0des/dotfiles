@@ -1,8 +1,10 @@
 return {
-  "nvim-lspconfig",
+  "neovim/nvim-lspconfig",
   opts = {
     -- disable the type hint feature, it's annoying, only enable when needed
     inlay_hints = { enabled = false },
+    -- disable codelens functionality
+    codelens = { enabled = false },
   },
   -- config = function()
   --   local lspconfig = require("lspconfig")

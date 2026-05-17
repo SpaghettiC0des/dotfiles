@@ -18,7 +18,9 @@ return {
     },
     opts = function()
       local dap = require("dap")
-      dap.set_log_level("TRACE")
+      -- Performance: Disable verbose DAP logging (use "TRACE" or "DEBUG" only when debugging)
+      -- Default levels: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
+      dap.set_log_level("ERROR")
       if not dap.adapters["pwa-node"] then
         require("dap").adapters["pwa-node"] = {
           type = "server",
