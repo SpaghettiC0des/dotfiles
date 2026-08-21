@@ -1,17 +1,30 @@
-# Reference: https://github.com/i3/i3/blob/next/etc/config
+# AeroSpace configuration. Docs: https://nikitabobko.github.io/AeroSpace/guide
 
-# i3 doesn't have "normalizations" feature that why we disable them here.
-# But the feature is very helpful.
-# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
-# Give normalizations a chance and enable them back.
-enable-normalization-flatten-containers = false
-enable-normalization-opposite-orientation-for-nested-containers = false
+# Keep this current so AeroSpace warns about future incompatible changes.
+config-version = 2
 
-# Mouse follows focus when focused monitor changes
+start-at-login = true
+auto-reload-config = true
+
+# Preserve the numbered workspaces when empty. This makes workspace switching
+# predictable and is required to opt in explicitly with config version 2.
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+# Normalized trees make repeated splits and moves predictable.
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+accordion-padding = 30
+
+# Mouse follows focus when the focused monitor changes.
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Nvim v2 uses Option-H/J/K/L to resize Smart Splits. Keep those keys inside
+# Neovim and use Option-Control-H/J/K/L for AeroSpace window focus instead.
 [mode.main.binding]
-    # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
+    # New terminal window, i3-style.
     alt-enter = '''exec-and-forget osascript -e '
     tell application "Terminal"
         do script
@@ -19,37 +32,23 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     end tell'
     '''
 
-    # i3 wraps focus by default
-    alt-j =         'focus --boundaries-action wrap-around-the-workspace left'
-    alt-k =         'focus --boundaries-action wrap-around-the-workspace down'
-    alt-l =         'focus --boundaries-action wrap-around-the-workspace up'
-    alt-semicolon = 'focus --boundaries-action wrap-around-the-workspace right'
+    # Focus and move macOS windows.
+    ctrl-alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+    ctrl-alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+    ctrl-alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+    ctrl-alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
 
-    alt-shift-j = 'move left'
-    alt-shift-k = 'move down'
-    alt-shift-l = 'move up'
-    alt-shift-semicolon = 'move right'
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
 
-    # Consider using 'join-with' command as a 'split' replacement if you want to enable
-    # normalizations
-    alt-h = 'split horizontal'
-    alt-v = 'split vertical'
-
-    alt-f = 'fullscreen'
-
-    alt-s = 'layout v_accordion' # 'layout stacking' in i3
-    alt-w = 'layout h_accordion' # 'layout tabbed' in i3
-    alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
-
-    alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
-
-    # Not supported, because this command is redundant in AeroSpace mental model.
-    # See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
-    #alt-space = 'focus toggle_tiling_floating'
-
-    # `focus parent`/`focus child` are not yet supported, and it's not clear whether they
-    # should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
-    # alt-a = 'focus parent'
+    # Use join-with from service mode for deliberate nested splits.
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+    alt-f = 'fullscreen --no-outer-gaps'
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
 
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
@@ -62,25 +61,31 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     alt-9 = 'workspace 9'
     alt-0 = 'workspace 10'
 
-    alt-shift-1 = 'move-node-to-workspace 1'
-    alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-5 = 'move-node-to-workspace 5'
-    alt-shift-6 = 'move-node-to-workspace 6'
-    alt-shift-7 = 'move-node-to-workspace 7'
-    alt-shift-8 = 'move-node-to-workspace 8'
-    alt-shift-9 = 'move-node-to-workspace 9'
-    alt-shift-0 = 'move-node-to-workspace 10'
+    alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+    alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+    alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+    alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+    alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+    alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+    alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+    alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+    alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
+    alt-shift-0 = 'move-node-to-workspace --focus-follows-window 10'
 
+    alt-tab = 'workspace-back-and-forth'
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    alt-shift-semicolon = 'mode service'
     alt-shift-c = 'reload-config'
 
-    alt-r = 'mode resize'
+[mode.service.binding]
+    esc = ['mode main']
+    r = ['flatten-workspace-tree', 'mode main']
+    b = ['balance-sizes', 'mode main']
+    f = ['layout floating tiling', 'mode main']
+    backspace = ['close-all-windows-but-current', 'mode main']
 
-[mode.resize.binding]
-    h = 'resize width -50'
-    j = 'resize height +50'
-    k = 'resize height -50'
-    l = 'resize width +50'
-    enter = 'mode main'
-    esc = 'mode main'
+    # Create a deliberate nested split around the focused window.
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
