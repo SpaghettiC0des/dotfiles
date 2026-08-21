@@ -1,9 +1,11 @@
 return {
   "TaDaa/vimade",
-  config = function()
-    require("vimade").setup({
-      fadelevel = 0.4,
-      enablesigns = 1,
-    })
-  end,
+  event = "VeryLazy",
+  opts = {
+    recipe = { "minimalist", { animate = false } },
+    ncmode = "windows",
+    fadelevel = 0.65,
+    groupdiff = true,
+    groupscrollbind = true,
+  },
 }
