@@ -16,8 +16,33 @@ M.markers = {
     "eslint.config.mts",
     "eslint.config.cts",
   },
-  oxlint = { ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts" },
-  oxfmt = { ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmt.config.ts" },
+  oxlint = { ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts", "oxlint.config.mts" },
+  oxfmt = { ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmt.config.ts", "oxfmt.config.mts" },
+  prettier = {
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.json5",
+    ".prettierrc.js",
+    ".prettierrc.cjs",
+    ".prettierrc.mjs",
+    ".prettierrc.toml",
+    ".prettierrc.yaml",
+    ".prettierrc.yml",
+    "prettier.config.js",
+    "prettier.config.cjs",
+    "prettier.config.mjs",
+    "prettier.config.ts",
+    "prettier.config.mts",
+    "prettier.config.cts",
+  },
+}
+
+local package_dependencies = {
+  biome = "@biomejs/biome",
+  eslint = "eslint",
+  oxlint = "oxlint",
+  oxfmt = "oxfmt",
+  prettier = "prettier",
 }
 
 local cache = {}
@@ -64,47 +89,83 @@ local function read_json(path)
 end
 
 ---@param data table
+---@param dependency string
 ---@return boolean
-local function package_uses_biome(data)
-  if data.biome ~= nil then
-    return true
-  end
-
-  for _, dependency_group in ipairs({ "dependencies", "devDependencies", "optionalDependencies", "peerDependencies" }) do
-    local dependencies = data[dependency_group]
-    if type(dependencies) == "table" and dependencies["@biomejs/biome"] then
+local function has_dependency(data, dependency)
+  for _, group in ipairs({ "dependencies", "devDependencies", "optionalDependencies", "peerDependencies" }) do
+    if type(data[group]) == "table" and data[group][dependency] then
       return true
     end
   end
-
   return false
 end
 
+---@param data table
 ---@param tool string
----@param dir string
----@return string?
-local function find_package_config(tool, dir)
-  if tool ~= "biome" and tool ~= "eslint" then
-    return nil
+---@return boolean
+local function package_uses_tool(data, tool)
+  if tool == "biome" and data.biome ~= nil then
+    return true
   end
+  if tool == "eslint" and data.eslintConfig ~= nil then
+    return true
+  end
+  if tool == "eslint" then
+    return false
+  end
+  if tool == "prettier" and data.prettier ~= nil then
+    return true
+  end
+  return has_dependency(data, package_dependencies[tool])
+end
 
-  local packages = vim.fs.find("package.json", {
+---@param dir string
+---@return string[]
+local function package_files(dir)
+  return vim.fs.find("package.json", {
     path = dir,
     upward = true,
     type = "file",
     limit = math.huge,
     stop = search_stop(dir),
   })
+end
 
-  for _, package in ipairs(packages) do
+---@param tool string
+---@param dir string
+---@return string?
+local function find_package_config(tool, dir)
+  for _, package in ipairs(package_files(dir)) do
     local data = read_json(package)
-    if data and ((tool == "biome" and package_uses_biome(data)) or (tool == "eslint" and data.eslintConfig ~= nil)) then
+    if data and package_uses_tool(data, tool) then
       return package
     end
   end
 end
 
----@param tool "biome"|"eslint"|"oxlint"|"oxfmt"
+---@param dependency string
+---@param target? number|string
+---@return boolean
+function M.has_package_dependency(dependency, target)
+  local dir = start_dir(target)
+  local key = "dependency\0" .. dependency .. "\0" .. dir
+  if cache[key] ~= nil then
+    return cache[key]
+  end
+
+  for _, package in ipairs(package_files(dir)) do
+    local data = read_json(package)
+    if data and has_dependency(data, dependency) then
+      cache[key] = true
+      return true
+    end
+  end
+
+  cache[key] = false
+  return false
+end
+
+---@param tool "biome"|"eslint"|"oxlint"|"oxfmt"|"prettier"
 ---@param target? number|string
 ---@return string?
 function M.config(tool, target)
@@ -126,27 +187,62 @@ function M.config(tool, target)
   return config
 end
 
+---@param tool "biome"|"oxlint"|"eslint"
 ---@param target? number|string
----@return "biome"|"oxlint"|"eslint"|nil, string?
-function M.linter(target)
-  for _, tool in ipairs({ "biome", "oxlint", "eslint" }) do
-    local config = M.config(tool, target)
-    if config then
-      return tool, vim.fs.dirname(config)
+---@return string?
+function M.linter_root(tool, target)
+  local biome = M.config("biome", target)
+  if biome then
+    return tool == "biome" and vim.fs.dirname(biome) or nil
+  end
+
+  local oxlint = M.config("oxlint", target)
+  if tool == "oxlint" then
+    return oxlint and vim.fs.dirname(oxlint) or nil
+  end
+
+  if tool == "eslint" then
+    local eslint = M.config("eslint", target)
+    if not eslint then
+      return nil
     end
+
+    -- Running both servers is safe only when the project explicitly installs
+    -- the compatibility preset that disables ESLint rules owned by Oxlint.
+    if oxlint and not M.has_package_dependency("eslint-plugin-oxlint", target) then
+      return nil
+    end
+    return vim.fs.dirname(eslint)
   end
 end
 
 ---@param target? number|string
----@return "biome"|"oxfmt"|"prettier", string?
+---@return string[]
+function M.linters(target)
+  local selected = {}
+  for _, tool in ipairs({ "biome", "oxlint", "eslint" }) do
+    if M.linter_root(tool, target) then
+      selected[#selected + 1] = tool
+    end
+  end
+  return selected
+end
+
+---@param target? number|string
+---@return boolean
+function M.has_linter(target)
+  return #M.linters(target) > 0
+end
+
+---@param target? number|string
+---@return "biome"|"oxfmt"|"prettier"|nil, string?
 function M.formatter(target)
-  for _, tool in ipairs({ "biome", "oxfmt" }) do
+  for _, tool in ipairs({ "biome", "oxfmt", "prettier" }) do
     local config = M.config(tool, target)
     if config then
       return tool, vim.fs.dirname(config)
     end
   end
-  return "prettier"
 end
 
 function M.clear_cache()
