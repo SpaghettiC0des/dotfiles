@@ -1,8 +1,22 @@
-local js_filetypes = {
+local web_filetypes = {
+  "astro",
+  "css",
+  "graphql",
+  "html",
   "javascript",
   "javascriptreact",
+  "json",
+  "jsonc",
+  "less",
+  "markdown",
+  "markdown.mdx",
+  "mdx",
+  "scss",
+  "svelte",
   "typescript",
   "typescriptreact",
+  "vue",
+  "yaml",
 }
 
 local duplicate_ts_diagnostics = {
@@ -17,22 +31,15 @@ local duplicate_ts_diagnostics = {
 ---@return fun(bufnr: number, on_dir: fun(root_dir: string))
 local function linter_root(server)
   return function(bufnr, on_dir)
-    local selected, root = require("config.js_tools").linter(bufnr)
-    if selected == server and root then
+    local root = require("config.js_tools").linter_root(server, bufnr)
+    if root then
       on_dir(root)
     end
   end
 end
 
-local function oxfmt_root(bufnr, on_dir)
-  local selected, root = require("config.js_tools").formatter(bufnr)
-  if selected == "oxfmt" and root then
-    on_dir(root)
-  end
-end
-
-local function tsgo_diagnostics(err, result, ctx, config)
-  if result and result.uri and require("config.js_tools").linter(vim.uri_to_bufnr(result.uri)) then
+local function typescript_diagnostics(err, result, ctx, config)
+  if result and result.uri and require("config.js_tools").has_linter(vim.uri_to_bufnr(result.uri)) then
     result = vim.deepcopy(result)
     result.diagnostics = vim.tbl_filter(function(diagnostic)
       local code = type(diagnostic.code) == "table" and diagnostic.code.value or diagnostic.code
@@ -68,20 +75,18 @@ return {
 
       opts.servers.eslint.settings = opts.servers.eslint.settings or {}
       opts.servers.eslint.settings.format = false
-
-      -- Conform owns formatting for these servers. This also prevents tsgo from
-      -- formatting alongside oxfmt when Conform falls back to LSP formatting.
       disable_lsp_formatting(opts.servers.biome)
 
-      -- LazyVim's Oxc extra disables this because it normally uses the oxfmt CLI.
+      -- Conform is the single formatting owner, including for Oxfmt.
       opts.servers.oxfmt = opts.servers.oxfmt or {}
-      opts.servers.oxfmt.enabled = true
-      opts.servers.oxfmt.root_dir = oxfmt_root
+      opts.servers.oxfmt.enabled = false
 
-      opts.servers.tsgo = opts.servers.tsgo or {}
-      opts.servers.tsgo.handlers = opts.servers.tsgo.handlers or {}
-      opts.servers.tsgo.handlers["textDocument/publishDiagnostics"] = tsgo_diagnostics
-      disable_lsp_formatting(opts.servers.tsgo)
+      for _, server in ipairs({ "vtsls" }) do
+        opts.servers[server] = opts.servers[server] or {}
+        opts.servers[server].handlers = opts.servers[server].handlers or {}
+        opts.servers[server].handlers["textDocument/publishDiagnostics"] = typescript_diagnostics
+        disable_lsp_formatting(opts.servers[server])
+      end
 
       opts.servers.graphql = opts.servers.graphql or {}
     end,
@@ -93,34 +98,21 @@ return {
       opts.formatters_by_ft = opts.formatters_by_ft or {}
       opts.formatters = opts.formatters or {}
 
-      -- oxfmt stays in memory as an LSP. Remove the CLI added by LazyVim's Oxc extra.
-      for ft, formatters in pairs(opts.formatters_by_ft) do
-        if type(formatters) == "table" then
-          opts.formatters_by_ft[ft] = vim.tbl_filter(function(formatter)
-            return formatter ~= "oxfmt"
-          end, formatters)
-        end
-      end
-
-      for _, ft in ipairs(js_filetypes) do
+      for _, ft in ipairs(web_filetypes) do
         opts.formatters_by_ft[ft] = function(bufnr)
           local formatter = require("config.js_tools").formatter(bufnr)
-          if formatter == "biome" then
-            return { "biome" }
-          end
-          if formatter == "oxfmt" then
-            return {}
-          end
-          return { "prettier" }
+          return formatter and { formatter } or {}
         end
       end
 
       opts.formatters_by_ft.sh = { "shfmt" }
-      opts.formatters_by_ft.sql = { "sqlfluff", "pg_format" }
-      opts.formatters_by_ft.graphql = { "prettier" }
+      opts.formatters_by_ft.sql = { "sqlfluff", "pg_format", stop_after_first = true }
 
-      opts.formatters.prettier = opts.formatters.prettier or {}
-      opts.formatters.prettier.command = require("conform.util").from_node_modules("prettier")
+      local from_node_modules = require("conform.util").from_node_modules
+      for _, formatter in ipairs({ "biome", "oxfmt", "prettier" }) do
+        opts.formatters[formatter] = opts.formatters[formatter] or {}
+        opts.formatters[formatter].command = from_node_modules(formatter == "biome" and "biome" or formatter)
+      end
     end,
   },
 }
