@@ -70,9 +70,10 @@ end
 config.native_macos_fullscreen_mode = true
 config.max_fps = 120
 config.background = {
-	{ source = { File = wezterm.config_dir .. "/wezterm-bg.jpg" }, opacity = 0.4 },
+	-- Use the repo path because ~/.wezterm.lua is a symlink in the home directory.
+	{ source = { File = wezterm.home_dir .. "/.dotfiles/wezterm/green2.jpg" }, opacity = 0.5 },
 }
-config.window_background_opacity = 0.5
+-- config.window_background_opacity = 0.5
 config.macos_window_background_blur = 80
 config.font_size = 18.0
 -- config.font = wezterm.font("Operator Mono Lig")
