@@ -8,7 +8,10 @@ auto-reload-config = true
 
 # Preserve the numbered workspaces when empty. This makes workspace switching
 # predictable and is required to opt in explicitly with config version 2.
-persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+persistent-workspaces = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+]
 
 # Normalized trees make repeated splits and moves predictable.
 enable-normalization-flatten-containers = true
@@ -32,11 +35,17 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     end tell'
     '''
 
-    # Focus and move macOS windows.
-    ctrl-alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
-    ctrl-alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
-    ctrl-alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
-    ctrl-alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+    # Focus across monitors with Vim directions; stop at the outer screen edges.
+    ctrl-alt-h = 'focus --boundaries all-monitors-outer-frame left'
+    ctrl-alt-j = 'focus --boundaries all-monitors-outer-frame down'
+    ctrl-alt-k = 'focus --boundaries all-monitors-outer-frame up'
+    ctrl-alt-l = 'focus --boundaries all-monitors-outer-frame right'
+
+    # Cycle windows in this workspace, revisit the previous window, or switch monitors.
+    ctrl-alt-n = 'focus --wrap-around dfs-next'
+    ctrl-alt-p = 'focus --wrap-around dfs-prev'
+    ctrl-alt-tab = 'focus-back-and-forth'
+    ctrl-alt-m = 'focus-monitor --wrap-around next'
 
     alt-shift-h = 'move left'
     alt-shift-j = 'move down'
@@ -50,30 +59,30 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'
 
-    alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
-    alt-6 = 'workspace 6'
-    alt-7 = 'workspace 7'
-    alt-8 = 'workspace 8'
-    alt-9 = 'workspace 9'
-    alt-0 = 'workspace 10'
+    # Switch only the focused display: HDR 4K uses 1–10; SDQHD uses 11–20.
+    alt-1 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 1'
+    alt-2 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 2'
+    alt-3 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 3'
+    alt-4 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 4'
+    alt-5 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 5'
+    alt-6 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 6'
+    alt-7 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 7'
+    alt-8 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 8'
+    alt-9 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 9'
+    alt-0 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" switch 10'
 
-    alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
-    alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
-    alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
-    alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
-    alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
-    alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
-    alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
-    alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
-    alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
-    alt-shift-0 = 'move-node-to-workspace --focus-follows-window 10'
+    alt-shift-1 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 1'
+    alt-shift-2 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 2'
+    alt-shift-3 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 3'
+    alt-shift-4 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 4'
+    alt-shift-5 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 5'
+    alt-shift-6 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 6'
+    alt-shift-7 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 7'
+    alt-shift-8 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 8'
+    alt-shift-9 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 9'
+    alt-shift-0 = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" move 10'
 
-    alt-tab = 'workspace-back-and-forth'
-    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    alt-tab = 'exec-and-forget bash "${XDG_CONFIG_HOME:-$HOME/.config}/aerospace/display-workspaces.sh" back'
     alt-shift-semicolon = 'mode service'
     alt-shift-c = 'reload-config'
 
@@ -89,3 +98,26 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+# Each workspace stays on its own display. SDQHD local numbers 1–10 map to 11–20.
+[workspace-to-monitor-force-assignment]
+    1 = 'LG HDR 4K'
+    2 = 'LG HDR 4K'
+    3 = 'LG HDR 4K'
+    4 = 'LG HDR 4K'
+    5 = 'LG HDR 4K'
+    6 = 'LG HDR 4K'
+    7 = 'LG HDR 4K'
+    8 = 'LG HDR 4K'
+    9 = 'LG HDR 4K'
+    10 = 'LG HDR 4K'
+    11 = 'LG SDQHD'
+    12 = 'LG SDQHD'
+    13 = 'LG SDQHD'
+    14 = 'LG SDQHD'
+    15 = 'LG SDQHD'
+    16 = 'LG SDQHD'
+    17 = 'LG SDQHD'
+    18 = 'LG SDQHD'
+    19 = 'LG SDQHD'
+    20 = 'LG SDQHD'
