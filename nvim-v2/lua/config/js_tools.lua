@@ -143,28 +143,6 @@ local function find_package_config(tool, dir)
   end
 end
 
----@param dependency string
----@param target? number|string
----@return boolean
-function M.has_package_dependency(dependency, target)
-  local dir = start_dir(target)
-  local key = "dependency\0" .. dependency .. "\0" .. dir
-  if cache[key] ~= nil then
-    return cache[key]
-  end
-
-  for _, package in ipairs(package_files(dir)) do
-    local data = read_json(package)
-    if data and has_dependency(data, dependency) then
-      cache[key] = true
-      return true
-    end
-  end
-
-  cache[key] = false
-  return false
-end
-
 ---@param tool "biome"|"eslint"|"oxlint"|"oxfmt"|"prettier"
 ---@param target? number|string
 ---@return string?
@@ -207,9 +185,8 @@ function M.linter_root(tool, target)
       return nil
     end
 
-    -- Running both servers is safe only when the project explicitly installs
-    -- the compatibility preset that disables ESLint rules owned by Oxlint.
-    if oxlint and not M.has_package_dependency("eslint-plugin-oxlint", target) then
+    -- Opt in only when the project actually enables compatible ESLint rules.
+    if oxlint and not vim.g.js_tools_eslint_with_oxlint then
       return nil
     end
     return vim.fs.dirname(eslint)
@@ -228,19 +205,68 @@ function M.linters(target)
   return selected
 end
 
----@param target? number|string
----@return boolean
-function M.has_linter(target)
-  return #M.linters(target) > 0
-end
+-- Conservative support sets: unsupported types fall through to the next tool.
+-- Framework files use Oxfmt/Prettier to avoid partial Biome formatting.
+local formatter_filetypes = {
+  biome = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc", "css", "graphql" },
+  oxfmt = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "jsonc",
+    "css",
+    "graphql",
+    "html",
+    "vue",
+    "svelte",
+    "scss",
+    "less",
+    "markdown",
+    "markdown.mdx",
+    "mdx",
+    "yaml",
+  },
+  prettier = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "jsonc",
+    "css",
+    "graphql",
+    "html",
+    "vue",
+    "svelte",
+    "astro",
+    "scss",
+    "less",
+    "markdown",
+    "markdown.mdx",
+    "mdx",
+    "yaml",
+  },
+}
 
 ---@param target? number|string
+---@param filetype? string
 ---@return "biome"|"oxfmt"|"prettier"|nil, string?
-function M.formatter(target)
+function M.formatter(target, filetype)
+  if not filetype then
+    if type(target) == "string" then
+      filetype = vim.filetype.match({ filename = target })
+    else
+      filetype = vim.bo[type(target) == "number" and target or 0].filetype
+    end
+  end
   for _, tool in ipairs({ "biome", "oxfmt", "prettier" }) do
-    local config = M.config(tool, target)
-    if config then
-      return tool, vim.fs.dirname(config)
+    if vim.tbl_contains(formatter_filetypes[tool], filetype or "") then
+      local config = M.config(tool, target)
+      if config then
+        return tool, vim.fs.dirname(config)
+      end
     end
   end
 end
