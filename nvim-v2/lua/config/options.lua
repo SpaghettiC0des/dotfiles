@@ -5,5 +5,6 @@
 -- Disable inlay hints
 vim.g.lazyvim_inlay_hints = false
 
+vim.g.lazyvim_python_lsp = "basedpyright"
 -- Keep lint fixes manual so only the selected formatter edits files on save.
 vim.g.lazyvim_eslint_auto_format = false
